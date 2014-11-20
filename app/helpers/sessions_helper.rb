@@ -38,4 +38,12 @@ module SessionsHelper
 		redirect_to(session[:return_to]||default)
 		session[:return_to] = nil
 	end
+
+    def signed_in_user
+      unless signed_in?
+        store_location
+        redirect_to signin_path, notice: 'Please sign in to view the page'
+      end
+    end
+
 end
