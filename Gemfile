@@ -14,6 +14,9 @@ gem 'factory_girl_rails', '1.4.0'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 
+
+#gem 'ember-rails'
+#gem 'ember-source', '1.8.0' # or the version you need
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

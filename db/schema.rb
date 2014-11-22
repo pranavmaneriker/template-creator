@@ -11,14 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141119132134) do
+ActiveRecord::Schema.define(:version => 20141121121216) do
 
-  create_table "microposts", :force => true do |t|
-    t.string   "content"
+  create_table "resume_data", :force => true do |t|
+    t.integer  "resume_id"
+    t.string   "field"
+    t.string   "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "resume_data", ["field"], :name => "index_resume_data_on_field"
+  add_index "resume_data", ["resume_id"], :name => "index_resume_data_on_resume_id"
+
+  create_table "resume_relations", :force => true do |t|
+    t.integer  "resume_id"
     t.integer  "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  add_index "resume_relations", ["resume_id"], :name => "index_resume_relations_on_resume_id"
+  add_index "resume_relations", ["user_id", "resume_id"], :name => "index_resume_relations_on_user_id_and_resume_id", :unique => true
+  add_index "resume_relations", ["user_id"], :name => "index_resume_relations_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
