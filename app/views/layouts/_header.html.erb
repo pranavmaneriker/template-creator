@@ -2,7 +2,15 @@
 	<div class="navbar-inner">
 		<div class="container">
 			<nav>
-				<%= link_to "Template Creator", root_path, id: "logo" %>
+				<ul class = "nav pull-left">
+					<li>
+						<% if signed_in? %>
+							Hi <%= current_user.name %> 
+						<% else %>
+							<%= link_to "Template Creator", root_path, id: "logo" %>
+						<% end %>
+					</li>
+				</ul>
 				<ul class="nav pull-right">
 					<li><%= link_to "Home", root_path %></li>
 					<li><%= link_to "Help", help_path %></li>

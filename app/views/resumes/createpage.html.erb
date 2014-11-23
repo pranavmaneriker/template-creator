@@ -1,10 +1,19 @@
 <%= provide(:title, "Create Resume" ) %>
-<div class="row">
+<div id="create_page" class="row">
 	<div class="col-md-6" id="resume">
+		<!-- move this to an appropriate file -->
 		Here goes the resume
 	</div>
 
 	<div class="col-md-6" id="form">
+		<!-- move this to an appropriate file -->
 		Here goes the form
 	</div>
 </div>
+
+<!--<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.5.0/ember.js"></script> -->
+
+<% javascript 'handlebars-v1.3.0' %> 
+<% javascript 'ember' %>
+<% javascript 'emberform' %>

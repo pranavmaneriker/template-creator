@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 	def new
 		if signed_in?
-			redirect_to current_user
+			redirect_to root_path
 		end
 	end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 		if user && user.authenticate(params[:session][:password])
 			#success
 			sign_in user
-			redirect_back_or user
+			redirect_back_or root_path
 		else
 			flash.now[:error] = 'Invalid username/password combination'
 			render 'new'

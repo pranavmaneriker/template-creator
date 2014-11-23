@@ -1,7 +1,10 @@
 <!-- <a href="#" class="btn btn-large btn-primary">Sign up</a> -->
 <!--img alt="Rails" src="/assets/rails.png" /-->
-<h1> Navigate to your preferred destination </h1>
+
 <% if signed_in? %>
+	<h1> Navigate to your preferred destination </h1>
 	<%= link_to "Resume", resumes_path, class:'btn btn-large btn-primary' %>
 	<%= link_to "Homepage", homepages_path, class:'btn btn-large btn-primary' %>
+	<% else %>
+	<h1> Please Login to continue </h1>
 <% end %>
