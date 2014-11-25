@@ -1,19 +1,113 @@
 <%= provide(:title, "Create Resume" ) %>
 <div id="create_page" class="row">
-	<div class="col-md-6" id="resume">
-		<!-- move this to an appropriate file -->
-		Here goes the resume
+	<div class="col-md-6">
+		<div id="resume" class="page"></div>
 	</div>
 
 	<div class="col-md-6" id="form">
-		<!-- move this to an appropriate file -->
-		Here goes the form
+		<form>
+			<label class="fieldname">
+				Name :
+			</label>
+			<input id="name" type="text" name="name" onchange="updateResume()">
+			<br>
+
+			<div class="checkbox">
+				<label class="fieldname">
+					<input type="checkbox" id="contactcheck" checked> Contact :
+				</label>
+			</div>
+			<div class="formgroup" id="contactgroup">
+				<label>
+					Email id :
+				</label>
+				<input id="email" type="text" name="email" onchange="updateResume()">
+				<br>
+				<label>
+					Contact number :
+				</label>
+				<input id="contact" type="text" name="contact" onchange="updateResume()">
+			</div>
+			<div>
+				<label class="fieldname">
+					<input type="checkbox" id="educationcheck" checked> Education :
+				</label>
+			</div>
+			<div class="formgroup" id="educationgroup">
+				<div>
+					<label>
+						Class
+					</label>
+					<input id="email" type="text" name="email" onchange="updateResume()">
+					<br>
+					<label>
+						Board / University
+					</label>
+					<input id="contact" type="text" name="contact" onchange="updateResume()">
+					<label>
+						Year of passing
+					</label>
+					<input id="contact" type="text" name="contact" onchange="updateResume()">
+					<label>
+						Percentage / grade
+					</label>
+					<input id="contact" type="text" name="contact" onchange="updateResume()">
+				</div>
+				<button>+</button>
+			</div>
+		</form>
 	</div>
 </div>
-
-<!--<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
-<script src="http://builds.emberjs.com/tags/v1.5.0/ember.js"></script> -->
-
-<% javascript 'handlebars-v1.3.0' %> 
-<% javascript 'ember' %>
-<% javascript 'emberform' %>
+<script>
+	function updateResume()
+	{
+		var data = "";
+		data = data + "<h1 class='name'>" + getData("name") + "</h1>";
+		if(check("contactcheck"))
+		{
+			data = data + "<div class='contacts'>";
+			data = data + "Email id : " + getData("email") + "<br>" + "Contact : " + getData('contact')+ "</div>";
+		}
+		// if(check("educationcheck"))
+		// {}
+		data = data + "<hr>";
+		document.getElementById("resume").innerHTML = data;
+	}
+	function getData(field)
+	{
+		var s = document.getElementById(field).value;
+		//write code to remove tags etc.
+		// s=s.replace(/&amp;/g,'&amp;amp;');
+		// s=s.replace(/&lt;/g,'&amp;lt;');
+		// s=s.replace(/&gt;/g,'&amp;gt;');
+		// s=s.replace(/\n/g,'&lt;br /&gt;\n');
+		// s=s.replace(/\r/g,'');
+		return s;
+	}
+	function check(str)
+	{
+		if(document.getElementById(str).checked)
+			return true;
+		else
+			return false;
+	}
+	$('#contactcheck').change(function () {
+		updateResume();
+		$("#contactgroup").slideToggle();
+	});
+</script>
+<style>
+	.page{
+		padding : 10pt;
+		width : 70%;
+		height : 1000px;
+		margin: 10pt;
+		border: solid black 1pt;
+	}
+	.fieldname{
+		font-weight: bold;
+	}
+	.formgroup{
+		background-color: #eee;
+	}
+</style>
