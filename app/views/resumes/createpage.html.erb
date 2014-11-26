@@ -13,6 +13,17 @@
 			<input id="rname" type="text" name="rname">
 			<br>
 			<label class="fieldname">
+				Template Name :
+			</label>
+			<select id="css_template" name="css_template" form="form">
+				<% @css_list.each do |item| %>
+					<option value="<%= item.template_name %>"><%= item.template_name %></option>
+				<% end %>
+			</select>
+			<hr>
+			<br>
+			<label class="fieldname">Resume data:</label>
+			<label class="fieldname">
 				Name :
 			</label>
 			<input id="name" type="text" name="name" onchange="updateResume()">
@@ -393,13 +404,12 @@
     display:    none;
     position:   fixed;
     z-index:    1000;
-    top:        100;
-    left:       100;
+    top:        100px;
     height:     50%;
     width:      50%;
-    background: rgba( 100, 100, 100, 1 ) 
+    background: rgba( 255, 255, 255, 1 ) 
                 url('http://jimpunk.net/Loading/wp-content/uploads/loading1.gif') 
-                20% 20% 
+                50% 50% 
                 no-repeat;
 }
 
@@ -415,11 +425,11 @@ body.loading .modal {
 <script id="cooljsloading">
 	$body = $("body");
 
-/*	$(document).on({
+	$(document).on({
 	    ajaxStart: function() { $body.addClass("loading");    },
 	     ajaxStop: function() { $body.removeClass("loading"); }    
 	});
-*/
+
 </script>
 
 
