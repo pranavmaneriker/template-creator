@@ -17,17 +17,18 @@ Margin (Left)			 <div id="body_left-margin" class = "slider1"></div>
 Font Size (Title)		 <div id="title_font-size" class = "slider"></div>
 Font Size (Headings)	 <div id="section_title_font-size" class = "slider"></div>
 Font Size (Content)		 <div id="body_font-size" class = "slider"></div>
-</pre>
+<form>
+<input type="hidden" id="css_res" form="css_res"/>
+File name 				<input type="text" name="file_name">
 <button onclick="save()">Save template!</button>
+</form>
+</pre>
 </div>
 <div style="width:65%" class = "preview">
 	<div class="text">
 		<p class="title">Title</p>
 		<p class = "heading">Section Title</p>
 		<p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-		<div id="css_result">
-
-		</div>
 	</div>
 	
 </div>
@@ -72,8 +73,7 @@ Font Size (Content)		 <div id="body_font-size" class = "slider"></div>
 		.preview{\n\
 			background-color: "+"#"+$('#background_color').val() +";\n\
 		}";
-		console.log(data);
-		document.getElementById('css_result').innerHTML = data;
+		$('#css_res').val(data);
 	}
 	$(function() {
 		$( ".slider1" ).slider({

@@ -1,14 +1,14 @@
 <div class="row">
-	<ul>
+	<table class="table table-hover">
 	<% @resume_list.each do |resume| %>
-		<li> <%= resume.resume_filename %>| <%= link_to "View/Edit", resumes_viewedit_path(:resume_id => resume.id) %> | 
-			<%= link_to "Delete", resumes_delete_path(resume_id: resume.id), method: :delete, confirm: "Are you sure? All data for this resume will be lost" %> | 
-			Download 
-			<%= link_to "html", resumes_download_path(resume_id: resume.id, format: "html" ) %>  
-			<%= link_to "pdf", resumes_download_path(resume_id: resume.id, format: "pdf" ) %>
-			<%= link_to "latex", resumes_download_path(resume_id: resume.id, format: "latex" ) %>
-			<%= link_to "json", resumes_download_path(resume_id: resume.id, format: "json" ) %>
-		</li>
+		<tr> <td><%= resume.resume_filename %></td><td> <%= link_to "View/Edit", resumes_viewedit_path(:resume_id => resume.id) %> </td><td> 
+			<%= link_to "Delete", resumes_delete_path(resume_id: resume.id), method: :delete, confirm: "Are you sure? All data for this resume will be lost" %> </td> 
+			<td>Download 
+			<%= link_to "html", resumes_download_path(resume_id: resume.id, format: "html" ) %> </td> 
+			<td><%= link_to "pdf", resumes_download_path(resume_id: resume.id, format: "pdf" ) %></td>
+			<td><%= link_to "latex", resumes_download_path(resume_id: resume.id, format: "latex" ) %></td>
+			<td><%= link_to "json", resumes_download_path(resume_id: resume.id, format: "json" ) %></td>
+		</tr>
 	<% end %>
-	</ul>
+	</table>
 </div>
