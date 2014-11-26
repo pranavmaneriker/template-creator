@@ -164,7 +164,7 @@
 		var data = "";
 		data =data + '<div class="checkbox">\
 						<label class="fieldname">\
-							<input type="checkbox" id="educheck'+edu_index+'" name =  "educheck'+edu_index+'"checked> Class :\
+							<input type="checkbox" id="educheck'+edu_index+'" name ="educheck'+edu_index+'"checked> Class :\
 						</label>\
 					</div>\
 					<input id="class'+edu_index+'" type="text" name="class'+edu_index+'" onchange="updateResume()">\
@@ -237,7 +237,7 @@
 <style>
 	.page{
 		padding : 10pt;
-		width : 70%;
+		width : 60%;
 		height : 1000px;
 		margin: 10pt;
 		border: solid black 1pt;
@@ -273,8 +273,8 @@ $(function() {
     	})
     	if(ret){
     		$.post('/resumes/postdata', $(this).serialize(), function(data){
-    			console.log(data);
-    			window.location.href="/resumes/viewlist"
+    			alert("Success!")
+    			window.location.href= "/resumes/viewlist"
     		});
 		}
     });

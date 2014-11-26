@@ -60,24 +60,24 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "educationcheck", field_data: @edu_check).save()
 
 				e_index = params[:edu_index]
-				no = e_index.to_i - 1
+				no = e_index.to_i
 				(0..no).each do |i|
 					is = i.to_s
 
 					pn = "educheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "class"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "board"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "yearofpassing"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "grade"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 				end
 
 
