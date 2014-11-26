@@ -61,25 +61,26 @@ class ResumesController < ApplicationController
 
 				e_index = params[:edu_index]
 				no = Integer(e_index) -1;
-				(0..no).each do |i|
-					is = i.to_s
+				if no>0
+					(0..no).each do |i|
+						is = i.to_s
 
-					pn = "educheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "educheck"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
-					pn = "class"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "class"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
-					pn = "board"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "board"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
-					pn = "yearofpassing"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "yearofpassing"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
-					pn = "grade"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "grade"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+					end
 				end
-
 				#academic acheivements
 				@acad_achev_check = params[:acadAchievementscheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "acadAchievementscheck", field_data: @acad_achev_check).save()
@@ -87,35 +88,35 @@ class ResumesController < ApplicationController
 
 				e_index = params[:acadachievements_index]
 				no = Integer(e_index) - 1
+				if no>0
+					(0..no).each do |i|
+						is = i.to_s
 
-				(0..no).each do |i|
-					is = i.to_s
-
-					pn = "acadAchievcheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "acadAchievcheck"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 
-					pn = "acadAchieve"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "acadAchieve"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+					end
 				end
-
 				#work ex
 				@work_ex_check = params[:workExperiencecheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "workExperiencecheck", field_data: @work_ex_check).save()
 
 				@ind = params[:workexp_index]
 				no = Integer(@ind) -1
-				
-				(0..no).each do |i|
-					is = i.to_s
+				if no>0
+					(0..no).each do |i|
+						is = i.to_s
 
-					pn = "workExpEntrycheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "workExpEntrycheck"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
-					pn = "workexpentry"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
-				end				  
-
+						pn = "workexpentry"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+					end				  
+				end
 				#papers
 				
 				@paper_check = params[:papercheck]
@@ -123,36 +124,36 @@ class ResumesController < ApplicationController
 
 				@ind = params[:paper_index]
 				no = Integer(@ind) -1
-				
-				(0..no).each do |i|
-					is = i.to_s
+				if no>0
+					(0..no).each do |i|
+						is = i.to_s
 
-					pn = "paperEntrycheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "paperEntrycheck"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 
-					pn = "paperEntry"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
-				end				  
-
+						pn = "paperEntry"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+					end				  
+				end
 				#extra c
 				@extra_c_check = params[:extraCcheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "extraCcheck", field_data: @extra_c_check).save()
 
 				@ind = params[:extrac_index]
 				no = Integer(@ind) -1
-				
-				(0..no).each do |i|
-					is = i.to_s
+				if no>0
+					(0..no).each do |i|
+						is = i.to_s
 
-					pn = "extraentrycheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+						pn = "extraentrycheck"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 
-					pn = "extraentry"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
-				end				  
-
+						pn = "extraentry"+is
+						@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+					end				  
+				end
 				#done woohoo
 				#ends here
 
