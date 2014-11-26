@@ -4,7 +4,7 @@
 		<div id="resume" class="page"></div>
 	</div>
 
-	<div class="col-md-6" id="form">
+	<div class="col-md-6" id="form_div">
 		<!-- move this to an appropriate file -->
 		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
 			<label class="fieldname">
@@ -15,7 +15,7 @@
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<input type="checkbox" id="contactcheck" checked> Contact :
+					<button onclick="$('#contactgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="contactcheck" checked> Contact :
 				</label>
 			</div>
 			<div class="formgroup" id="contactgroup">
@@ -29,32 +29,31 @@
 				</label>
 				<input id="contact" type="text" name="contact" onchange="updateResume()">
 			</div>
-			<div>
+			<div class="checkbox">
 				<label class="fieldname">
-					<input type="checkbox" id="educationcheck" checked> Education :
+					<button onclick="$('#educationgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="educationcheck" checked> Education :
 				</label>
 			</div>
 			<div class="formgroup" id="educationgroup">
-				<div>
-					<label>
-						Class
-					</label>
-					<input id="email" type="text" name="email" onchange="updateResume()">
-					<br>
-					<label>
-						Board / University
-					</label>
-					<input id="contact" type="text" name="contact" onchange="updateResume()">
-					<label>
-						Year of passing
-					</label>
-					<input id="contact" type="text" name="contact" onchange="updateResume()">
-					<label>
-						Percentage / grade
-					</label>
-					<input id="contact" type="text" name="contact" onchange="updateResume()">
-				</div>
 				<button onclick="addEducation()">+</button>
+			</div>
+			
+			<div class="checkbox">
+				<label class="fieldname">
+					<button onclick="$('#acadAchievementsgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="acadAchievementscheck" checked> Academic Achievements :
+				</label>
+			</div>
+			<div class="formgroup" id="acadAchievementsgroup">
+				<button onclick="addAcadAchievements()">+</button>
+			</div>
+
+			<div class="checkbox">
+				<label class="fieldname">
+					<button onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" checked> Work Experience :
+				</label>
+			</div>
+			<div class="formgroup" id="workExperiencegroup">
+				<button onclick="addWorkExperience()">+</button>
 			</div>
 		<% end %>
 	</div>
@@ -65,6 +64,9 @@
 
 
 <script>
+	var edu_index=0;
+	var acadAchievements_index=0;
+	var workExp_index=0;
 	function updateResume()
 	{
 		var data = "";
@@ -74,9 +76,59 @@
 			data = data + "<div class='contacts'>";
 			data = data + "Email id : " + getData("email") + "<br>" + "Contact : " + getData('contact')+ "</div>";
 		}
+		data = data + "<hr>";
+		if(check("educationcheck"))
+		{
+			data = data + '<label class="section_title">Education</label><table class="table table-condensed">\
+							  <tr>\
+							  	<th>Class</th>\
+							  	<th>Board / University</th>\
+							  	<th>Year of Passing</th>\
+							  	<th>Grade / percentage</th>\
+							  </tr>'
+			var i;
+			for(i=0; i<edu_index; i++)
+			{
+				if(check("educheck"+i))
+				{
+					data = data + "<tr><td>"+getData("class"+i)+"</td><td>"+getData("board"+i)+"</td><td>"+getData("yearofpassing"+i)+"</td><td>"+getData("grade"+i)+"</td><td></tr>"
+				}
+			}
+			data = data + "</table>";
+		}
+
+		if(check("acadAchievementscheck"))
+		{
+			data = data + '<label class="section_title">Academic Achievements</label>\
+							<ul class="list">'
+			var i;
+			for(i=0; i<acadAchievements_index; i++)
+			{
+				if(check("acadAchievcheck"+i))
+				{
+					data = data + "<li>" + getData("acadAchieve"+i)+"</li>"
+				}
+			}
+			data = data + "</ul>";
+		}
+
+		if(check("workExperiencecheck"))
+		{
+			data = data + '<label class="section_title">Work Experience</label>\
+							<ul class="list">'
+			var i;
+			for(i=0; i<workExp_index; i++)
+			{
+				if(check("workExpEntrycheck"+i))
+				{
+					data = data + "<li>" + getData("workexpentry"+i)+"</li>"
+				}
+			}
+			data = data + "</ul>";
+		}
 		// if(check("educationcheck"))
 		// {}
-		data = data + "<hr>";
+		
 		document.getElementById("resume").innerHTML = data;
 	}
 	function getData(field)
@@ -99,12 +151,77 @@
 	}
 	function addEducation()
 	{
-		$("#educationgroup").children("div").first().clone(true).insertBefore("#educationgroup > div:last-child");
+		var data = "";
+		data =data + '<div class="checkbox">\
+						<label class="fieldname">\
+							<input type="checkbox" id="educheck'+edu_index+'" checked> Class :\
+						</label>\
+					</div>\
+					<input id="class'+edu_index+'" type="text" name="email" onchange="updateResume()">\
+					<br>\
+					<label>\
+						Board / University\
+					</label>\
+					<input id="board'+edu_index+'" type="text" name="contact" onchange="updateResume()">\
+					<label>\
+						Year of passing\
+					</label>\
+					<input id="yearofpassing'+edu_index+'" type="text" name="contact" onchange="updateResume()">\
+					<label>\
+						Percentage / grade\
+					</label>\
+					<input id="grade'+edu_index+'" type="text" name="contact" onchange="updateResume()">\
+				</div>';
+		edu_index += 1;
+		$("#educationgroup").append(data);
+	}
+	function addAcadAchievements()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" checked>\
+					</div>\
+					<input id="acadAchieve'+acadAchievements_index+'" type="text" name="acadAchievement" onchange="updateResume()">\
+					<br>\
+				</div>';
+		acadAchievements_index += 1;
+		$("#acadAchievementsgroup").append(data);
+	}
+	function addWorkExperience()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" checked>\
+					</div>\
+					<input id="workexpentry'+workExp_index+'" type="text" name="workExp" onchange="updateResume()">\
+					<br>\
+				</div>';
+		workExp_index += 1;
+		$("#workExperiencegroup").append(data);
 	}
 	$('#contactcheck').change(function () {
 		updateResume();
 		$("#contactgroup").slideToggle();
 	});
+	$('#educationcheck').change(function () {
+		updateResume();
+		$("#educationgroup").slideToggle();
+	});
+	$('#acadAchievementscheck').change(function () {
+		updateResume();
+		$("#acadAchievementsgroup").slideToggle();
+	});
+	$('#workExperiencecheck').change(function () {
+		updateResume();
+		$("#workExperiencegroup").slideToggle();
+	});
+	$('#educheck0').change(function () {
+		updateResume();
+	});
+	function toggleUpDown()
+	{
+		$(this).innerHTML = ($(this).innerHTML == '^')?'v':'^';
+	}
 </script>
 <style>
 	.page{
