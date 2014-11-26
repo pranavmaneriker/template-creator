@@ -7,7 +7,7 @@ class ResumesController < ApplicationController
 	end
 
 	def createpage
-		
+		@css_list = ResumesCssTemplate.all
 	end
 
 	def create
@@ -60,27 +60,100 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "educationcheck", field_data: @edu_check).save()
 
 				e_index = params[:edu_index]
-				no = e_index.to_i - 1
+				no = Integer(e_index) -1;
 				(0..no).each do |i|
 					is = i.to_s
 
 					pn = "educheck"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "class"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "board"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "yearofpassing"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 
 					pn = "grade"+is
-					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
 				end
 
+				#academic acheivements
+				@acad_achev_check = params[:acadAchievementscheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "acadAchievementscheck", field_data: @acad_achev_check).save()
 
+
+				e_index = params[:acadachievements_index]
+				no = Integer(e_index) - 1
+
+				(0..no).each do |i|
+					is = i.to_s
+
+					pn = "acadAchievcheck"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+
+
+					pn = "acadAchieve"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+				end
+
+				#work ex
+				@work_ex_check = params[:workExperiencecheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "workExperiencecheck", field_data: @work_ex_check).save()
+
+				@ind = params[:workexp_index]
+				no = Integer(@ind) -1
+				
+				(0..no).each do |i|
+					is = i.to_s
+
+					pn = "workExpEntrycheck"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+
+					pn = "workexpentry"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+				end				  
+
+				#papers
+				
+				@paper_check = params[:papercheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "papercheck", field_data: @paper_check).save()
+
+				@ind = params[:paper_index]
+				no = Integer(@ind) -1
+				
+				(0..no).each do |i|
+					is = i.to_s
+
+					pn = "paperEntrycheck"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+
+
+					pn = "paperEntry"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+				end				  
+
+				#extra c
+				@extra_c_check = params[:extraCcheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "extraCcheck", field_data: @extra_c_check).save()
+
+				@ind = params[:extrac_index]
+				no = Integer(@ind) -1
+				
+				(0..no).each do |i|
+					is = i.to_s
+
+					pn = "extraentrycheck"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+
+
+					pn = "extraentry"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: params[pn.to_sym]).save()
+				end				  
+
+				#done woohoo
 				#ends here
 
 				flash[:success] =  "Successfully created resume!"

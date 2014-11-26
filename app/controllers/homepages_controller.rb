@@ -4,9 +4,7 @@ class HomepagesController < ApplicationController
 	
 	def home
 	end
-
-	def createhomepage
-		
-	end
 	
+	def create
+	end
 end
