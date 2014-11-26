@@ -1,2 +1,6 @@
+Before every run:
+	bundle install
+	rake db:migrate
+
 Install pandoc: For convertion between formats
  sudo apt-get install pandoc

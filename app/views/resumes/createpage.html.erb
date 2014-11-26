@@ -8,7 +8,7 @@
 		<!-- move this to an appropriate file -->
 		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
 			<label class="fieldname">
-				File Name :
+				File Name(for saving resume) :
 			</label>
 			<input id="rname" type="text" name="rname">
 			<br>
@@ -62,7 +62,7 @@
 				<button onclick="addWorkExperience()">+</button>
 			</div>
 			<input type="submit" class="btn btn-primary">
-			<input type="hidden" id="htmlpage" name="htmlpage" />
+			<input type="hidden" id="htmlpage" name="htmlpage">
 		<% end %>
 	</div>
 </div>
@@ -237,7 +237,7 @@
 <style>
 	.page{
 		padding : 10pt;
-		width : 70%;
+		width : 60%;
 		height : 1000px;
 		margin: 10pt;
 		border: solid black 1pt;
@@ -266,7 +266,7 @@ $(function() {
     						ret = true
     					} 
     					else{
-    							alert("Name already in use. Use a new name")
+    							alert("Name already in use/invalid . Use a new name")
     					}
     				}
     	})
