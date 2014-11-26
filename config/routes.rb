@@ -8,7 +8,7 @@ TestApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate] 
-  resources :homepages, only: [ :home ]
+  resources :homepages, only: [ :home, :createhomepage]
 
   match '/signup', to: "users#new"
   match "/help", to: 'static_pages#help'
@@ -19,6 +19,8 @@ TestApp::Application.routes.draw do
   match '/resumes', to: 'resumes#home'
   match '/resumes/createpage', to: 'resumes#createpage'
   match '/homepages', to: 'homepages#home'
+  match '/homepages/createhomepage', to: 'homepages#createhomepage'
+
   
   match '/resumes/postdata', to: 'resumes#postdata', via: :post
   match '/resumes/checkdata', to: 'resumes#checkdata', via: :get

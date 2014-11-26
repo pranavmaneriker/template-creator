@@ -1,9 +1,11 @@
-<%= provide(:title, "Create Resume" ) %>
+<%= provide(:title, "Create Homepage" ) %>
 <div id="create_page" class="row">
+	<!-- <link href="ssg-style.css" rel="stylesheet"> -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Italianno' rel='stylesheet' type='text/css'>
 	<div class="col-md-6">
-		<div id="resume" class="page"></div>
+		<div id="homepage" class="page"></div>
 	</div>
-
 	<div class="col-md-6" id="form_div">
 		<!-- move this to an appropriate file -->
 		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
@@ -16,6 +18,11 @@
 				Name :
 			</label>
 			<input id="name" type="text" name="name" onchange="updateResume()">
+			<br>
+			<label class="fieldname">
+				About me :
+			</label>
+			<input id="aboutMe" type="text" name="aboutMe" onchange="updateResume()">
 			<br>
 			<div class="checkbox">
 				<label class="fieldname">
@@ -52,23 +59,23 @@
 				<button type="button" onclick="addAcadAchievements()">+</button>
 			</div>
 
-			<div class="checkbox">
+			<!-- <div class="checkbox">
 				<label class="fieldname">
 					<button type="button" onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" name="workExperiencecheck"checked> Work Experience :
 				</label>
 			</div>
 			<div class="formgroup" id="workExperiencegroup">
 				<button type="button" onclick="addWorkExperience()">+</button>
-			</div>
+			</div> -->
 
-			<div class="checkbox">
+			<!-- <div class="checkbox">
 				<label class="fieldname">
 					<button type="button" onclick="$('#papersgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="papercheck" name="papercheck"checked> Papers Published :
 				</label>
 			</div>
 			<div class="formgroup" id="papersgroup">
 				<button type="button" onclick="addPaper()">+</button>
-			</div>
+			</div> -->
 
 			<div class="checkbox">
 				<label class="fieldname">
@@ -98,80 +105,96 @@
 	function updateResume()
 	{
 		var data = "";
-		data = data + "<h1 class='name'>" + getData("name") + "</h1>";
-		data = data + "<hr>";
-		if(check("contactcheck"))
-		{
-			data = data + "<div class='contacts'>";
-			data = data + "Email id : " + getData("email") + "<br>" + "Contact : " + getData('contact')+ "</div>";
-		}
-		// data = data + "<hr>";
-		if(check("educationcheck"))
-		{
-			data = data + '<label class="section_title">Educational Qualifications</label><table class="table table-condensed">\
-							  <tr>\
-							  	<th>Class</th>\
-							  	<th>Board / University</th>\
-							  	<th>Year of Passing</th>\
-							  	<th>Grade / percentage</th>\
-							  </tr>'
-			var i;
-			for(i=0; i<edu_index; i++)
+		data = data + '<div id="header">\
+						    <div id="header-content">'
+		data = data + getData("name");
+		data = data + '</div>\
+    					</div>'
+    	data = data + '<div class="clear"></div>\
+					    <div id="menu">\
+    					<div id="menu-content">\
+        				<div id="left-menu">\
+        				<ul>'
+        data = data + '<li><a href="createhomepage">Home</a></li>'
+
+
+        data = data + '<li><a href="#about">About Me</a></li>'
+
+        if(check("educationcheck") || check("acadAchievementscheck"))
+        	data = data + '<li><a href="#research">Academics</a></li>'
+
+        if(check("extraCcheck"))
+        	data = data + '<li><a href="#extra">Extra Curriculars</a></li>'
+
+        if(check("contactcheck"))
+        	data = data + '<li><a href="#personal">Contact</a></li>'
+
+        data = data + '</ul>\
+        				</div>\
+        				</div>\
+    					</div>'
+  //   	data = data + '<div class="clear"></div>\
+  //   					<div id="menugap"></div>\
+		// 			    <div class="clear"></div>\
+  //   					<div id="container">\
+  //       				<div id="content">\
+  //       				<div id="left-column">'
+		// data = data + '</div>\
+		// 		        <div id="mid-column">'
+		data = data + '</div>\
+				        <div id="left-mid-column">'
+
+		data = data + '<h1>About Me\
+				        <a class="anchor" id="about">about</a></h1>'
+		data = data + getData("aboutMe");
+
+        if(check("educationcheck") || check("acadAchievementscheck")){
+        	data = data + '<h1>Academics\
+				            <a class="anchor" id="research">research</a></h1>'
+
+			if(check("educationcheck"))
 			{
-				if(check("educheck"+i))
+				data = data + '<font color="green"><b>Educational Qualifications:</b></font>'
+				data = data + '<table class="table table-condensed">\
+								  <tr>\
+								  	<th>Class</th>\
+								  	<th>Board / University</th>\
+								  	<th>Year of Passing</th>\
+								  	<th>Grade / percentage</th>\
+								  </tr>'
+				var i;
+				for(i=0; i<edu_index; i++)
 				{
-					data = data + "<tr><td>"+getData("class"+i)+"</td><td>"+getData("board"+i)+"</td><td>"+getData("yearofpassing"+i)+"</td><td>"+getData("grade"+i)+"</td><td></tr>"
+					if(check("educheck"+i))
+					{
+						data = data + "<tr><td>"+getData("class"+i)+"</td><td>"+getData("board"+i)+"</td><td>"+getData("yearofpassing"+i)+"</td><td>"+getData("grade"+i)+"</td><td></tr>"
+					}
 				}
+				data = data + "</table>";
 			}
-			data = data + "</table>";
-		}
-		if(check("acadAchievementscheck"))
-		{
-			data = data + '<label class="section_title">Academic Achievements</label>\
-							<ul class="list">'
-			var i;
-			for(i=0; i<acadAchievements_index; i++)
+
+			if(check("acadAchievementscheck"))
 			{
-				if(check("acadAchievcheck"+i))
+				data = data + '<font color="green"><b>Scholastic Achievements:</font></b><br>'
+				data = data + '<ul class="list">'
+				var i;
+				for(i=0; i<acadAchievements_index; i++)
 				{
-					data = data + "<li>" + getData("acadAchieve"+i)+"</li>"
+					if(check("acadAchievcheck"+i))
+					{
+						data = data + "<li>" + getData("acadAchieve"+i)+"</li>"
+					}
 				}
+				data = data + "</ul>";
 			}
-			data = data + "</ul>";
+
 		}
 
-		if(check("workExperiencecheck"))
-		{
-			data = data + '<label class="section_title">Work Experience</label>\
-							<ul class="list">'
-			var i;
-			for(i=0; i<workExp_index; i++)
-			{
-				if(check("workExpEntrycheck"+i))
-				{
-					data = data + "<li>" + getData("workexpentry"+i)+"</li>"
-				}
-			}
-			data = data + "</ul>";
-		}
-		if(check("papercheck"))
-		{
-			data = data + '<label class="section_title">Papers Published</label>\
-							<ul class="list">'
-			var i;
-			for(i=0; i<paper_index; i++)
-			{
-				if(check("paperEntryCheck"+i))
-				{
-					data = data + "<li>" + getData("paperEntry"+i)+"</li>"
-				}
-			}
-			data = data + "</ul>";
-		}
 		if(check("extraCcheck"))
 		{
-			data = data + '<label class="section_title">Extra Curricular Achievements</label>\
-							<ul class="list">'
+			data = data + '<h1>Extra Curriculars\
+				            <a class="anchor" id="extra">extra</a></h1>'
+			data = data + '<ul class="list">'
 			var i;
 			for(i=0; i<extraC_index; i++)
 			{
@@ -182,13 +205,29 @@
 			}
 			data = data + "</ul>";
 		}
-		
-		// data = data + '<label class="section_title">Hobbies</label>'
 
-		// if(check("educationcheck"))
-		// {}
-		
-		document.getElementById("resume").innerHTML = data;
+		if(check("contactcheck"))
+		{
+			data = data + '<h1>Contact me\
+				            <a class="anchor" id="personal">personal</a></h1>'
+			data = data + '<font color="green">Email-id: </font>'
+			data = data + getData("email") + "<br>";
+			data = data + '<font color="green">Phone no.: </font>'
+			data = data + getData("contact") + "<br>";
+		}
+
+		data = data + '</div>\
+						</div>\
+						</div>'
+		data = data + '<div class="clear"></div>\
+					    <div id="footer">\
+    					<div id="footer-content">\
+        				&copy; Me\
+        				<br>\
+        				Feedback is not welcome :P.\
+    					</div>\
+    					</div>'
+		document.getElementById("homepage").innerHTML = data;
 
 		$("#htmlpage").val(data)
 		
@@ -242,37 +281,13 @@
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" checked>\
+							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" checked >\
 					</div>\
 					<input id="acadAchieve'+acadAchievements_index+'" type="text" name="acadAchieve'+acadAchievements_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		acadAchievements_index += 1;
 		$("#acadAchievementsgroup").append(data);
-	}
-	function addWorkExperience()
-	{
-		var data = "";
-		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" checked>\
-					</div>\
-					<input id="workexpentry'+workExp_index+'" type="text" name="workexpentry'+workExp_index+'" onchange="updateResume()">\
-					<br>\
-				</div>';
-		workExp_index += 1;
-		$("#workExperiencegroup").append(data);
-	}
-	function addPaper()
-	{
-		var data = "";
-		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="paperEntryCheck'+paper_index+'" checked>\
-					</div>\
-					<input id="paperEntry'+paper_index+'" type="text" name="paperEntry'+paper_index+'" onchange="updateResume()">\
-					<br>\
-				</div>';
-		paper_index += 1;
-		$("#papersgroup").append(data);
 	}
 	function addExtraC()
 	{
@@ -318,12 +333,12 @@
 </script>
 <style>
 .page{
-	padding : 10pt;
+	/*padding : 10pt;*/
 	width : 70%;
 	height : 1000px;
-	margin: 10pt;
+	/*margin: 10pt;*/
 	border: solid black 1pt;
-	background-color: #F4F9FB;
+	/*background-color: #F4F9FB;*/
 }
 .fieldname{
 	font-weight: bold;
@@ -331,7 +346,7 @@
 .formgroup{
 	background-color: #eee;
 }
-.checkbox{
+/*.checkbox{
 
 }
 .name{
@@ -340,7 +355,7 @@
 	margin-bottom: -10px;
 	padding-bottom: 0px;
 	color: #050560;
-}
+}*/
 .contacts{
 	font-size: 16px;
 	/*font-weight: bold;*/
@@ -349,28 +364,133 @@
 	text-align: right;
 	color: #050560;
 
-}
+}/*
 .section_title{
 	font-weight: bold;
 	font-size: 16px;
 	background-color: #DBE5E9;
 	text-align: left;
 	color: #050560;
-}
+}*/
 .list{
 	list-style-type: square;
 	font-size: 16px;
-	/*margin-left: 50px;*/
+	margin-left: 20px;
 }
 table{
 	font-size: 16px;
-	color: #050560;
+	/*color: #050560;*/
 }
 td{
-	font-size: 16px;
+	font-size: 14px;
 }
-hr{
-	color: #050560;
+body {
+margin: 0;
+font: 14px/1.6 Raleway, Georgia, serif;
+color: #222222;
+background: #ffffff;
+}#header {
+clear: both;
+height: 100px;
+width: 100%;
+/*position: fixed;*/
+top: 0;
+background: #770f0f;
+font: 400 80px Italianno, Georgia, serif;
+color: #ffffff;
+}#header-content {
+margin: 0 auto;
+padding: 0;
+width: 1000px;
+/*background-size: 70px;*/
+}#menu {
+clear: both;
+height: 40px;
+width: 100%;
+/*position: fixed;*/
+top: 100px;
+background: #f2f1eb;
+}#menu-content {
+width: 1000px;
+margin: 0 auto;
+padding: 10px 0 0 0;
+}#left-menu {
+float: left;
+font: 18px/1.6 Raleway, Georgia, serif;
+}#left-menu ul {
+overflow: hidden;
+padding: 0;
+margin: 0;
+list-style-type: none;
+}#left-menu ul li {
+float: left;
+margin: 0 30px 0 0;
+}#left-menu ul li a {
+display: block;
+text-decoration: none;
+border: none;
+color: #222222;
+}#left-menu ul li a:hover {
+color: #222222;
+border-bottom: 2px solid #770f0f;
+}
+#menugap {
+clear: both;
+height: 20px;
+width: 100%;
+position: fixed;
+top: 140px;
+background: #ffffff;
+}
+#container {
+clear: both;
+margin: 120px auto 0 auto;
+}
+#content {
+clear: both;
+width: 1000px;
+margin: 0 auto;
+}
+#footer {
+clear: both;
+margin: 20px auto 0 auto;
+width: 100%;
+min-height: 50px;
+background: #770f0f;
+color: #ffffff;
+/*vertical-align: bottom;*/
+/*position: absolute;
+    bottom: 0px;
+    width: 100%;*/}
+#footer-content {
+width: 1000px;
+margin: 0 auto;
+padding: 0;
+}
+#left-mid-column {
+float: left;
+width: 650px;
+margin: 0;
+padding: 0;
+}
+.clear {
+clear: both;
+}
+a {
+color: #770f0f;
+text-decoration: none;
+}
+a.anchor {
+position: relative;
+top: -50px;
+visibility: hidden;
+}
+h1 {
+margin-top: 50px;
+color: #770f0f;
+}
+h2 {
+margin-top: 50px;
 }
 </style>
 
