@@ -1,5 +1,5 @@
 <% provide(:title, "Resume Home") %>
 
-<%= link_to 'Create Resume', resumes_createpage_path , class:"btn btn-primary" %> 
+<%= button_to 'Create Resume', resumes_createpage_path , :method => "get", class:"btn btn-primary" %> 
 
-<%= link_to 'Existing Resume', resumes_viewlist_path , class:"btn btn-primary" %> 
+<%= button_to 'Existing Resume', resumes_viewlist_path , :method => "get", class:"btn btn-primary" %> 
