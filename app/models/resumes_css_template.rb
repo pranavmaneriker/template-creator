@@ -1,5 +1,5 @@
 class ResumesCssTemplate < ActiveRecord::Base
-  attr_accessible :template_name
+  attr_accessible :template_name, :template_file
     has_attached_file :template_file,
   	:path => ":rails_root/uploads_css/:id/:basename.:extension"
 

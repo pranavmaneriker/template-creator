@@ -1,0 +1,23 @@
+Run the following commands on rails console to be able to use the css templates
+
+data = File.open(Rails.root.join("public","plain_template.css"))
+ResumesCssTemplate.new(template_name:"plain_template", template_file: data).save()
+
+data = File.open(Rails.root.join("public","formal_template.css"))
+ResumesCssTemplate.new(template_name:"formal_template", template_file: data).save()
+
+data = File.open(Rails.root.join("public","formal2_template.css"))
+ResumesCssTemplate.new(template_name:"formal2_template", template_file: data).save()
+
+data = File.open(Rails.root.join("public","formal3.css"))
+ResumesCssTemplate.new(template_name:"formal3", template_file: data).save()
+
+data = File.open(Rails.root.join("public","formal4.css"))
+ResumesCssTemplate.new(template_name:"formal4", template_file: data).save()
+
+data = File.open(Rails.root.join("public","funky1.css"))
+ResumesCssTemplate.new(template_name:"funky1", template_file: data).save()
+
+data = File.open(Rails.root.join("public","funky2.css"))
+ResumesCssTemplate.new(template_name:"funky2", template_file: data).save()
+
