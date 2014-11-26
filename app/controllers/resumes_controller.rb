@@ -68,4 +68,7 @@ class ResumesController < ApplicationController
 		flash[:success] = "Deleted the resume successfully"
 		redirect_to resumes_viewlist_path
 	end
+
+	def createtemplate
+	end
 end
