@@ -116,6 +116,9 @@ class ResumesController < ApplicationController
 		redirect_to resumes_viewlist_path
 	end
 
+	def createtemplate
+	end
+
 	def download
 		@resume = current_user.resume_relations.find(params[:resume_id])
 		
@@ -140,6 +143,6 @@ class ResumesController < ApplicationController
 				flash[:error] = "Invalid/unsupported format specified"
 				redirect_to root_url
 		end  
-
 	end
+
 end

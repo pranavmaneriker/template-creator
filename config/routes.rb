@@ -7,7 +7,7 @@ TestApp::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete] 
+  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate] 
   resources :homepages, only: [ :home ]
 
   match '/signup', to: "users#new"
@@ -25,6 +25,7 @@ TestApp::Application.routes.draw do
   match '/resumes/viewlist', to: 'resumes#viewlist'
   match '/resumes/viewedit', to: 'resumes#viewedit'
   match '/resumes/delete', to: 'resumes#delete'
+  match '/resumes/createtemplate', to: 'resumes#createtemplate'
   match '/resumes/download', to: 'resumes#download'
   # The priority is based upon order of creation:
   # first created -> highest priority.
