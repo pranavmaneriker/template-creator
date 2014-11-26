@@ -96,7 +96,6 @@
 
 <script>
 	var edu_index=0;
-
 	var acadAchievements_index=0;
 	var workExp_index=0;
 	var paper_index=0;
@@ -106,15 +105,16 @@
 	{
 		var data = "";
 		data = data + "<h1 class='name'>" + getData("name") + "</h1>";
+		data = data + "<hr>";
 		if(check("contactcheck"))
 		{
 			data = data + "<div class='contacts'>";
 			data = data + "Email id : " + getData("email") + "<br>" + "Contact : " + getData('contact')+ "</div>";
 		}
-		data = data + "<hr>";
+		// data = data + "<hr>";
 		if(check("educationcheck"))
 		{
-			data = data + '<label class="section_title">Education</label><table class="table table-condensed">\
+			data = data + '<label class="section_title">Educational Qualifications</label><table class="table table-condensed">\
 							  <tr>\
 							  	<th>Class</th>\
 							  	<th>Board / University</th>\
@@ -165,7 +165,7 @@
 			data = data + '<label class="section_title">Papers Published</label>\
 							<ul class="list">'
 			var i;
-			for(i=0; i<workExp_index; i++)
+			for(i=0; i<paper_index; i++)
 			{
 				if(check("paperEntryCheck"+i))
 				{
@@ -331,12 +331,54 @@
 		height : 1000px;
 		margin: 10pt;
 		border: solid black 1pt;
+		background-color: #F4F9FB;
 	}
 	.fieldname{
 		font-weight: bold;
 	}
 	.formgroup{
 		background-color: #eee;
+	}
+	.checkbox{
+
+	}
+	.name{
+		text-align: left;
+		font-size: 35px;
+		margin-bottom: -10px;
+		padding-bottom: 0px;
+		color: #050560;
+	}
+	.contacts{
+		font-size: 16px;
+		/*font-weight: bold;*/
+		margin-bottom: 10px;
+		margin-top: 0px;
+		text-align: right;
+		color: #050560;
+
+	}
+	.section_title{
+		font-weight: bold;
+		font-size: 16px;
+		background-color: #DBE5E9;
+		text-align: left;
+		color: #050560;
+	}
+	.list{
+		list-style-type: square;
+		font-size: 16px;
+		/*margin-left: 50px;*/
+	}
+	table{
+		font-size: 16px;
+		color: #050560;
+	}
+	td{
+		font-size: 16px;
+	}
+	hr{
+		color: #050560;
 	}
 </style>
 

@@ -1,0 +1,13 @@
+.page{
+	padding : 10pt;
+	width : 70%;
+	height : 1000px;
+	margin: 10pt;
+	border: solid black 1pt;
+}
+.fieldname{
+	font-weight: bold;
+}
+.formgroup{
+	background-color: #eee;
+}
