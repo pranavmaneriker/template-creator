@@ -84,7 +84,7 @@ class ResumesController < ApplicationController
 				@acad_achev_check = params[:acadAchievementscheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "acadAchievementscheck", field_data: @acad_achev_check).save()
 
-				e_index = params[:acadAcheivements_index]
+				e_index = params[:acadacheivements_index]
 				no = e_index.to_i - 1
 
 				(0..no).each do |i|
@@ -102,7 +102,7 @@ class ResumesController < ApplicationController
 				@work_ex_check = params[:workExperiencecheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "workExperiencecheck", field_data: @work_ex_check).save()
 
-				@ind = params[:workExp_index]
+				@ind = params[:workexp_index]
 				no = @ind.to_i -1
 				
 				(0..no).each do |i|
@@ -138,7 +138,7 @@ class ResumesController < ApplicationController
 				@extra_c_check = params[:extraCcheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "extraCcheck", field_data: @extra_c_check).save()
 
-				@ind = params[:extraC_index]
+				@ind = params[:extrac_index]
 				no = @ind.to_i -1
 				
 				(0..no).each do |i|
