@@ -81,6 +81,11 @@
 
 			<input type="submit" class="btn btn-primary">
 			<input type="hidden" id="htmlpage" name="htmlpage" />
+			<input type="hidden" id="edu_index" name = "edu_index"/>
+			<input type="hidden" id="acadachievements_index" name = "acadachievements_index"/>
+			<input type="hidden" id="workexp_index" name = "workexp_index"/>
+			<input type="hidden" id="paper_index" name = "paper_index"/>
+			<input type="hidden" id="extrac_index" name = "extrac_index"/>
 		<% end %>
 	</div>
 </div>
@@ -97,6 +102,11 @@
 	var extraC_index=0;
 	function updateResume()
 	{
+		$('#edu_index').val(edu_index);
+		$('#acadachievements_index').val(acadAchievements_index);
+		$('#workexp_index').val(workExp_index);
+		$('#paper_index').val(paper_index);
+		$('#extrac_index').val(extraC_index);
 		var data = "";
 		data = data + "<h1 class='name'>" + getData("name") + "</h1>";
 		data = data + "<hr>";
@@ -236,55 +246,59 @@
 				</div>';
 		edu_index += 1;
 		$("#educationgroup").append(data);
-
+		updateResume();
 	}
 	function addAcadAchievements()
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" checked>\
+							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" name="acadAchievcheck'+acadAchievements_index+'" checked>\
 					</div>\
 					<input id="acadAchieve'+acadAchievements_index+'" type="text" name="acadAchieve'+acadAchievements_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		acadAchievements_index += 1;
 		$("#acadAchievementsgroup").append(data);
+		updateResume();
 	}
 	function addWorkExperience()
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" checked>\
+							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" name="workExpEntrycheck'+workExp_index+'" checked>\
 					</div>\
 					<input id="workexpentry'+workExp_index+'" type="text" name="workexpentry'+workExp_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		workExp_index += 1;
 		$("#workExperiencegroup").append(data);
+		updateResume();
 	}
 	function addPaper()
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="paperEntryCheck'+paper_index+'" checked>\
+							<input type="checkbox" id="paperEntryCheck'+paper_index+'"  name ="paperEntryCheck'+paper_index+'" checked>\
 					</div>\
 					<input id="paperEntry'+paper_index+'" type="text" name="paperEntry'+paper_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		paper_index += 1;
 		$("#papersgroup").append(data);
+		updateResume();
 	}
 	function addExtraC()
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="extraentrycheck'+extraC_index+'" checked>\
+							<input type="checkbox" id="extraentrycheck'+extraC_index+'" name="extraentrycheck'+extraC_index+'" checked>\
 					</div>\
 					<input id="extraentry'+extraC_index+'" type="text" name="extraentry'+extraC_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		extraC_index += 1;
 		$("#extraCgroup").append(data);
+		updateresume();
 	}
 	$('#contactcheck').change(function () {
 		updateResume();
