@@ -26,6 +26,7 @@ TestApp::Application.routes.draw do
   match '/resumes/viewedit', to: 'resumes#viewedit'
   match '/resumes/delete', to: 'resumes#delete'
   match '/resumes/createtemplate', to: 'resumes#createtemplate'
+  match '/resumes/download', to: 'resumes#download'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

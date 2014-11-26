@@ -21,11 +21,17 @@ class ResumesController < ApplicationController
 	def postdata
 		#creates new with this data
 			@rname = params[:rname]
-			
+			file = StringIO.new("<html><body>" + params[:htmlpage] + "</html></body>");
+
+			file.class.class_eval { attr_accessor :original_filename, :content_type }
+  			file.original_filename = @rname+".html"
+  			file.content_type = "text/html" # you could set this manually aswell if needed e.g 'application/pdf'
+
 			@old_resume = current_user.resume_relations.find_by_resume_filename(@rname)
 			if @old_resume.nil?
 				
-				@new_resume_relations_entry = current_user.resume_relations.build(resume_filename: @rname)
+				@new_resume_relations_entry = current_user.resume_relations.build(resume_filename: @rname, resume_html: file)
+
 				@new_resume_relations_entry.save()
 				@new_id = @new_resume_relations_entry.id
 
@@ -44,6 +50,7 @@ class ResumesController < ApplicationController
 				redirect_to resumes_createpage_path
 			end
 			#change this to created path
+			file.close
 	end
 
 	def checkdata
@@ -71,4 +78,28 @@ class ResumesController < ApplicationController
 
 	def createtemplate
 	end
+
+	def download
+		@resume = ResumeRelation.find(params[:resume_id])
+		@reqFor = params[:format]
+		PandocRuby.allow_file_paths = true
+		case @reqFor
+			when "html"
+				send_file @resume.resume_html.path, filename: @resume.resume_filename, type: "text/html", disposition: 'inline'
+			when "pdf"
+				PandocRuby.convert(@resume.resume_html.path, :from => :html, :o => @resume.resume_html.path+".pdf")
+				send_file @resume.resume_html.path+".pdf", filename: "download.pdf", type: "application/pdf", dispostion: "inline"
+				
+			when "latex"
+				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :latex), filename: "download.tex", type: "application/x-tex", dispostion: "inline"
+			when "markdown"
+				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :markdown), filename: "download.md", type: "text/markdown", dispostion: "inline"
+			when "json"
+				render json: @resume.resume_data_values
+			else
+				flash[:error] = "Invalid/unsupported format specified"
+				redirect_to root_url
+		end  
+	end
+	
 end
