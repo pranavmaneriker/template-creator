@@ -24,7 +24,7 @@ class ResumesController < ApplicationController
 			file = StringIO.new("<html><body>" + params[:htmlpage] + "</html></body>");
 
 			file.class.class_eval { attr_accessor :original_filename, :content_type }
-  			file.original_filename = @rname 
+  			file.original_filename = @rname+".html"
   			file.content_type = "text/html" # you could set this manually aswell if needed e.g 'application/pdf'
 
 			@old_resume = current_user.resume_relations.find_by_resume_filename(@rname)
@@ -74,5 +74,29 @@ class ResumesController < ApplicationController
 		@rec.destroy
 		flash[:success] = "Deleted the resume successfully"
 		redirect_to resumes_viewlist_path
+	end
+
+	def download
+		@resume = ResumeRelation.find(params[:resume_id])
+		@reqFor = params[:format]
+		PandocRuby.allow_file_paths = true
+		case @reqFor
+			when "html"
+				send_file @resume.resume_html.path, filename: @resume.resume_filename, type: "text/html", disposition: 'inline'
+			when "pdf"
+				PandocRuby.convert(@resume.resume_html.path, :from => :html, :o => @resume.resume_html.path+".pdf")
+				send_file @resume.resume_html.path+".pdf", filename: "download.pdf", type: "application/pdf", dispostion: "inline"
+				
+			when "latex"
+				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :latex), filename: "download.tex", type: "application/x-tex", dispostion: "inline"
+			when "markdown"
+				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :markdown), filename: "download.md", type: "text/markdown", dispostion: "inline"
+			when "json"
+				render json: @resume.resume_data_values
+			else
+				flash[:error] = "Invalid/unsupported format specified"
+				redirect_to root_url
+		end  
+
 	end
 end

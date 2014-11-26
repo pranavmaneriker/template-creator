@@ -14,6 +14,7 @@ gem 'factory_girl_rails', '1.4.0'
 gem 'will_paginate', '3.0.3'
 gem 'bootstrap-will_paginate', '0.0.6'
 gem "paperclip", "~> 4.2"
+gem "pandoc-ruby", "0.7.5"
 
 #gem 'ember-rails'
 #gem 'ember-source', '1.8.0' # or the version you need
