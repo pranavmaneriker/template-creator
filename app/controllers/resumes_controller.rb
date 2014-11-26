@@ -89,7 +89,6 @@ class ResumesController < ApplicationController
 			when "pdf"
 				PandocRuby.convert(@resume.resume_html.path, :from => :html, :o => @resume.resume_html.path+".pdf")
 				send_file @resume.resume_html.path+".pdf", filename: "download.pdf", type: "application/pdf", dispostion: "inline"
-				
 			when "latex"
 				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :latex), filename: "download.tex", type: "application/x-tex", dispostion: "inline"
 			when "markdown"
@@ -101,5 +100,5 @@ class ResumesController < ApplicationController
 				redirect_to root_url
 		end  
 	end
-	
+
 end

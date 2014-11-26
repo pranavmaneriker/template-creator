@@ -7,10 +7,10 @@
 <br>
 <div style="width:30%; float:left">
 <pre>
-Font Color (name)     	 <input id="name_color" class="color picker">
-Font Color (Headings) 	 <input id="section_title_color" class="color picker">
-Font Color (content)  	 <input id="body_color" class="color picker">
-Background color      	 <input id="background_color" class="color picker">
+Font Color (name)     	 <input id="name_color" class="color picker" onchange='refresh()'>
+Font Color (Headings) 	 <input id="section_title_color" class="color picker" onchange='refresh()'>
+Font Color (content)  	 <input id="body_color" class="color picker" onchange='refresh()'>
+Background color      	 <input id="background_color" class="color picker" onchange='refresh()'>
 
 Margin (Top)			 <div id="body_top-margin" class = "slider1"></div>
 Margin (Left)			 <div id="body_left-margin" class = "slider1"></div>
@@ -25,7 +25,11 @@ Font Size (Content)		 <div id="body_font-size" class = "slider"></div>
 		<p class="title">Title</p>
 		<p class = "heading">Section Title</p>
 		<p class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+		<div id="css_result">
+
+		</div>
 	</div>
+	
 </div>
 
 <script type="text/javascript">
@@ -43,6 +47,33 @@ Font Size (Content)		 <div id="body_font-size" class = "slider"></div>
 		$('.heading').css("font-size", $('#section_title_font-size').slider("value"));
 		$('.content').css("font-size", $('#body_font-size').slider("value"));
 		$('.preview').css("background-color", "#"+$('#background_color').val() );
+		$('.title').css("color", "#"+$('#name_color').val());
+		$('.heading').css("color", "#"+$('#section_title_color').val());
+		$('.content').css("color", "#"+$('#body_color').val());
+		var data = "";
+		data = data + ".text{\n\
+			margin-top: "+$('#body_top-margin').slider("value")+";\n\
+			margin-bottom: "+$('#body_top-margin').slider("value")+";\n\
+			margin-left: "+$('#body_left-margin').slider("value")+";\n\
+			margin-right: "+$('#body_left-margin').slider("value")+";\n\
+		}\n\
+		.heading{\n\
+			font-size: "+$('#section_title_font-size').slider("value")+";\n\
+			color: "+"#"+$('#section_title_color').val()+";\n\
+		}\n\
+		.content{\n\
+			font-size: "+$('#body_font-size').slider("value")+";\n\
+			color: "+"#"+$('#body_color').val()+";\n\
+		}\n\
+		.title{\n\
+			font-size: "+$('#title_font-size').slider("value")+";\n\
+			color: "+"#"+$('#name_color').val()+";\n\
+		}\n\
+		.preview{\n\
+			background-color: "+"#"+$('#background_color').val() +";\n\
+		}";
+		console.log(data);
+		document.getElementById('css_result').innerHTML = data;
 	}
 	$(function() {
 		$( ".slider1" ).slider({
