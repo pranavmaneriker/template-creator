@@ -13,6 +13,17 @@
 			<input id="rname" type="text" name="rname">
 			<br>
 			<label class="fieldname">
+				Template Name :
+			</label>
+			<select id="css_template" name="css_template" form="form">
+				<% @css_list.each do |item| %>
+					<option value="<%= item.template_name %>"><%= item.template_name %></option>
+				<% end %>
+			</select>
+			<hr>
+			<br>
+			<label class="fieldname">Resume data:</label>
+			<label class="fieldname">
 				Name :
 			</label>
 			<input id="name" type="text" name="name" onchange="updateResume()">
@@ -331,6 +342,23 @@
 	}
 </script>
 <style>
+<<<<<<< HEAD
+.page{
+	padding : 10pt;
+	width : 70%;
+	height : 1000px;
+	margin: 10pt;
+	border: solid black 1pt;
+	background-color: #F4F9FB;
+}
+.fieldname{
+	font-weight: bold;
+}
+.formgroup{
+	background-color: #eee;
+}
+.checkbox{
+=======
 	.page{
 		padding : 10pt;
 		width : 60%;
@@ -346,46 +374,47 @@
 		background-color: #eee;
 	}
 	.checkbox{
+>>>>>>> 8116ae25d23b691a778694e7d6c9cfa384f17860
 
-	}
-	.name{
-		text-align: left;
-		font-size: 35px;
-		margin-bottom: -10px;
-		padding-bottom: 0px;
-		color: #050560;
-	}
-	.contacts{
-		font-size: 16px;
-		/*font-weight: bold;*/
-		margin-bottom: 10px;
-		margin-top: 0px;
-		text-align: right;
-		color: #050560;
+}
+.name{
+	text-align: left;
+	font-size: 35px;
+	margin-bottom: -10px;
+	padding-bottom: 0px;
+	color: #050560;
+}
+.contacts{
+	font-size: 16px;
+	/*font-weight: bold;*/
+	margin-bottom: 10px;
+	margin-top: 0px;
+	text-align: right;
+	color: #050560;
 
-	}
-	.section_title{
-		font-weight: bold;
-		font-size: 16px;
-		background-color: #DBE5E9;
-		text-align: left;
-		color: #050560;
-	}
-	.list{
-		list-style-type: square;
-		font-size: 16px;
-		/*margin-left: 50px;*/
-	}
-	table{
-		font-size: 16px;
-		color: #050560;
-	}
-	td{
-		font-size: 16px;
-	}
-	hr{
-		color: #050560;
-	}
+}
+.section_title{
+	font-weight: bold;
+	font-size: 16px;
+	background-color: #DBE5E9;
+	text-align: left;
+	color: #050560;
+}
+.list{
+	list-style-type: square;
+	font-size: 16px;
+	/*margin-left: 50px;*/
+}
+table{
+	font-size: 16px;
+	color: #050560;
+}
+td{
+	font-size: 16px;
+}
+hr{
+	color: #050560;
+}
 </style>
 
 <style id="coolloader">
@@ -393,13 +422,12 @@
     display:    none;
     position:   fixed;
     z-index:    1000;
-    top:        100;
-    left:       100;
+    top:        100px;
     height:     50%;
     width:      50%;
-    background: rgba( 100, 100, 100, 1 ) 
+    background: rgba( 255, 255, 255, 1 ) 
                 url('http://jimpunk.net/Loading/wp-content/uploads/loading1.gif') 
-                20% 20% 
+                50% 50% 
                 no-repeat;
 }
 
@@ -415,11 +443,11 @@ body.loading .modal {
 <script id="cooljsloading">
 	$body = $("body");
 
-/*	$(document).on({
+	$(document).on({
 	    ajaxStart: function() { $body.addClass("loading");    },
 	     ajaxStop: function() { $body.removeClass("loading"); }    
 	});
-*/
+
 </script>
 
 

@@ -7,7 +7,7 @@ class ResumesController < ApplicationController
 	end
 
 	def createpage
-		
+		@css_list = ResumesCssTemplate.all
 	end
 
 	def create
