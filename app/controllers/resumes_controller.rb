@@ -84,6 +84,7 @@ class ResumesController < ApplicationController
 				@acad_achev_check = params[:acadAchievementscheck]
 				@new_resume_relations_entry.resume_data_values.build(field_name: "acadAchievementscheck", field_data: @acad_achev_check).save()
 
+
 				e_index = params[:acadachievements_index]
 				no = Integer(e_index) - 1
 

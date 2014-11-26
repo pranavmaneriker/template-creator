@@ -3,8 +3,10 @@
 
 <% if signed_in? %>
 	<h1> Navigate to your preferred destination </h1>
-	<%= link_to "Resume", resumes_path, class:'btn btn-large btn-primary' %>
-	<%= link_to "Homepage", homepages_path, class:'btn btn-large btn-primary' %>
+	<div class="row">
+		<%= button_to "Resume", resumes_path, :method => "get", class:'btn btn-large btn-primary' %>
+		<%= button_to "Homepage", homepages_path, :method =>"get", class:'btn btn-large btn-primary' %>
+	</div>
 	<% else %>
 	<h1> Please Login to continue </h1>
 <% end %>
