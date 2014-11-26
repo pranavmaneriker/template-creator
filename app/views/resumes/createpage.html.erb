@@ -17,10 +17,9 @@
 			</label>
 			<input id="name" type="text" name="name" onchange="updateResume()">
 			<br>
-
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#contactgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="contactcheck" checked> Contact :
+					<button type="button" onclick="$('#contactgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="contactcheck" name="contactcheck" checked> Contact :
 				</label>
 			</div>
 			<div class="formgroup" id="contactgroup">
@@ -36,54 +35,50 @@
 			</div>
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#educationgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="educationcheck" checked> Education :
+					<button type="button" onclick="$('#educationgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="educationcheck" name = "educationcheck" checked> Education :
 				</label>
 			</div>
 			<div class="formgroup" id="educationgroup">
-				<button onclick="addEducation()">+</button>
+				<button type="button" onclick="addEducation()">+</button>
 			</div>
 
 			
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#acadAchievementsgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="acadAchievementscheck" checked> Academic Achievements :
+					<button type="button" onclick="$('#acadAchievementsgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="acadAchievementscheck" name="acadAchievementscheck"checked> Academic Achievements :
 				</label>
 			</div>
 			<div class="formgroup" id="acadAchievementsgroup">
-				<button onclick="addAcadAchievements()">+</button>
+				<button type="button" onclick="addAcadAchievements()">+</button>
 			</div>
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" checked> Work Experience :
+					<button type="button" onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" name="workExperiencecheck"checked> Work Experience :
 				</label>
 			</div>
 			<div class="formgroup" id="workExperiencegroup">
-				<button onclick="addWorkExperience()">+</button>
+				<button type="button" onclick="addWorkExperience()">+</button>
 			</div>
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#papersPublishedgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="papersPublishedcheck" checked> Papers Published :
+					<button type="button" onclick="$('#papersgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="papercheck" name="papercheck"checked> Papers Published :
 				</label>
 			</div>
-			<div class="formgroup" id="papersPublishedgroup">
-				<button onclick="addPapersPublished()">+</button>
+			<div class="formgroup" id="papersgroup">
+				<button type="button" onclick="addPaper()">+</button>
 			</div>
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#extraCgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="extraCcheck" checked> Extra Curricular Activities :
+					<button type="button" onclick="$('#extraCgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="extraCcheck" name="extraCcheck"checked> Extra Curricular Activities :
 				</label>
 			</div>
 			<div class="formgroup" id="extraCgroup">
-				<button onclick="addExtraC()">+</button>
+				<button type="button" onclick="addExtraC()">+</button>
 			</div>
-			<!-- <label class="fieldname">
-				Hobbies :
-			</label>
-			<input id="hobbies" type="text" name="hobbies" onchange="updateResume()">
-			<br> -->
+
 			<input type="submit" class="btn btn-primary">
 			<input type="hidden" id="htmlpage" name="htmlpage" />
 		<% end %>
@@ -100,7 +95,6 @@
 	var workExp_index=0;
 	var paper_index=0;
 	var extraC_index=0;
-
 	function updateResume()
 	{
 		var data = "";
@@ -160,7 +154,7 @@
 			}
 			data = data + "</ul>";
 		}
-		if(check("papersPublishedcheck"))
+		if(check("papercheck"))
 		{
 			data = data + '<label class="section_title">Papers Published</label>\
 							<ul class="list">'
@@ -222,26 +216,23 @@
 		var data = "";
 		data =data + '<div class="checkbox">\
 						<label class="fieldname">\
-							<input type="checkbox" id="educheck'+edu_index+'" checked onchange="updateResume()">\
+							<input type="checkbox" id="educheck'+edu_index+'" name =  "educheck'+edu_index+'"checked> Class :\
 						</label>\
 					</div>\
-					<label>\
-						Class / Degree\
-					</label>\
-					<input id="class'+edu_index+'" type="text" name="email" onchange="updateResume()">\
+					<input id="class'+edu_index+'" type="text" name="class'+edu_index+'" onchange="updateResume()">\
 					<br>\
 					<label>\
 						Board / University\
 					</label>\
-					<input id="board'+edu_index+'" type="text" name="contact" onchange="updateResume()">\
+					<input id="board'+edu_index+'" type="text" name="board'+edu_index+'" onchange="updateResume()">\
 					<label>\
 						Year of passing\
 					</label>\
-					<input id="yearofpassing'+edu_index+'" type="text" name="contact" onchange="updateResume()">\
+					<input id="yearofpassing'+edu_index+'" type="text" name="yearofpassing'+edu_index+'" onchange="updateResume()">\
 					<label>\
 						Percentage / grade\
 					</label>\
-					<input id="grade'+edu_index+'" type="text" name="contact" onchange="updateResume()">\
+					<input id="grade'+edu_index+'" type="text" name="grade'+edu_index+'" onchange="updateResume()">\
 				</div>';
 		edu_index += 1;
 		$("#educationgroup").append(data);
@@ -251,9 +242,9 @@
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" checked onchange="updateResume()">\
+							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" checked>\
 					</div>\
-					<input id="acadAchieve'+acadAchievements_index+'" type="text" name="acadAchievement" onchange="updateResume()">\
+					<input id="acadAchieve'+acadAchievements_index+'" type="text" name="acadAchieve'+acadAchievements_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		acadAchievements_index += 1;
@@ -263,33 +254,33 @@
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" checked onchange="updateResume()">\
+							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" checked>\
 					</div>\
-					<input id="workexpentry'+workExp_index+'" type="text" name="workExp" onchange="updateResume()">\
+					<input id="workexpentry'+workExp_index+'" type="text" name="workexpentry'+workExp_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		workExp_index += 1;
 		$("#workExperiencegroup").append(data);
 	}
-	function addPapersPublished()
+	function addPaper()
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="paperEntryCheck'+paper_index+'" checked onchange="updateResume()">\
+							<input type="checkbox" id="paperEntryCheck'+paper_index+'" checked>\
 					</div>\
-					<input id="paperEntry'+paper_index+'" type="text" name="paper" onchange="updateResume()">\
+					<input id="paperEntry'+paper_index+'" type="text" name="paperEntry'+paper_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		paper_index += 1;
-		$("#papersPublishedgroup").append(data);
+		$("#papersgroup").append(data);
 	}
 	function addExtraC()
 	{
 		var data = "";
 		data =data + '<div class="checkbox">\
-							<input type="checkbox" id="extraentrycheck'+extraC_index+'" checked onchange="updateResume()">\
+							<input type="checkbox" id="extraentrycheck'+extraC_index+'" checked>\
 					</div>\
-					<input id="extraentry'+extraC_index+'" type="text" name="extra" onchange="updateResume()">\
+					<input id="extraentry'+extraC_index+'" type="text" name="extraentry'+extraC_index+'" onchange="updateResume()">\
 					<br>\
 				</div>';
 		extraC_index += 1;
@@ -311,14 +302,15 @@
 		updateResume();
 		$("#workExperiencegroup").slideToggle();
 	});
-	$('#papersPublishedcheck').change(function () {
+	$('#papercheck').change(function () {
 		updateResume();
-		$("#papersPublishedgroup").slideToggle();
+		$("#papersgroup").slideToggle();
 	});
 	$('#extraCcheck').change(function () {
 		updateResume();
 		$("#extraCgroup").slideToggle();
 	});
+	
 	function toggleUpDown()
 	{
 		$(this).innerHTML = ($(this).innerHTML == '^')?'v':'^';
@@ -385,7 +377,8 @@
 <script>
 // For verification of name before submission'
 $(function() {
-    $('#form').submit(function() {
+    $('#form').submit(function(e) {
+    	e.preventDefault();
     	var rName = $("#rname").val()
     	ret = false
     	$.ajax({
@@ -402,7 +395,12 @@ $(function() {
     					}
     				}
     	})
-    	return ret
+    	if(ret){
+    		$.post('/resumes/postdata', $(this).serialize(), function(data){
+    			console.log(data);
+    			window.location.href="/resumes/viewlist"
+    		});
+		}
     });
 });
 </script>

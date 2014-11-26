@@ -21,12 +21,15 @@ class ResumesController < ApplicationController
 	def postdata
 		#creates new with this data
 			@rname = params[:rname]
+			if @rname.blank?
+				flash[:error] = "Blank name not allowed. You forced the button to click. Now we force you to reenter the data"
+				redirect_to resumes_createpage_path
+			end
 			file = StringIO.new("<html><body>" + params[:htmlpage] + "</html></body>");
 
 			file.class.class_eval { attr_accessor :original_filename, :content_type }
   			file.original_filename = @rname+".html"
   			file.content_type = "text/html" # you could set this manually aswell if needed e.g 'application/pdf'
-
 			@old_resume = current_user.resume_relations.find_by_resume_filename(@rname)
 			if @old_resume.nil?
 				
@@ -36,9 +39,47 @@ class ResumesController < ApplicationController
 				@new_id = @new_resume_relations_entry.id
 
 				#save the actual resume
+
+				#name
 				@name = params[:name]
 				@resume_data_name = @new_resume_relations_entry.resume_data_values.build(field_name: "name", field_data: @name)
 				@resume_data_name.save()
+
+				#contact
+				@contactcheck = params[:contactcheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "contactcheck", field_data: @contactcheck).save()
+
+				@email = params[:email]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "email", field_data: @email).save()				
+
+				@contact = params[:contact]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "contact", field_data: @contact).save()
+
+				#education
+				@edu_check = params[:educationcheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "educationcheck", field_data: @edu_check).save()
+
+				e_index = params[:edu_index]
+				no = e_index.to_i - 1
+				(0..no).each do |i|
+					is = i.to_s
+
+					pn = "educheck"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "class"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "board"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "yearofpassing"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "grade"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+				end
+
 
 				#ends here
 
@@ -56,7 +97,7 @@ class ResumesController < ApplicationController
 	def checkdata
 		@new_name = params[:rname]
 		@old_r = current_user.resume_relations.find_by_resume_filename(@new_name)
-		if @old_r.nil?
+		if @old_r.blank? && !(@new_name.blank?)
 			render :json => {"valid" => "true"}
 		else
 			render :json => {"valid" => "false"}
@@ -80,16 +121,19 @@ class ResumesController < ApplicationController
 	end
 
 	def download
-		@resume = ResumeRelation.find(params[:resume_id])
+		@resume = current_user.resume_relations.find(params[:resume_id])
+		
+		if @resume.nil?
+			flash[:error] = "Invalid parameters entered"
+			redirect_to resumes_viewlist_path
+		end
+		
 		@reqFor = params[:format]
-		PandocRuby.allow_file_paths = true
 		case @reqFor
 			when "html"
 				send_file @resume.resume_html.path, filename: @resume.resume_filename, type: "text/html", disposition: 'inline'
 			when "pdf"
-				PandocRuby.convert(@resume.resume_html.path, :from => :html, :o => @resume.resume_html.path+".pdf")
-				send_file @resume.resume_html.path+".pdf", filename: "download.pdf", type: "application/pdf", dispostion: "inline"
-				
+				send_data WickedPdf.new.pdf_from_html_file(@resume.resume_html.path), filename: "download.pdf", type: "application/pdf", dispostion: "inline"	
 			when "latex"
 				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :latex), filename: "download.tex", type: "application/x-tex", dispostion: "inline"
 			when "markdown"
@@ -101,5 +145,5 @@ class ResumesController < ApplicationController
 				redirect_to root_url
 		end  
 	end
-	
+
 end
