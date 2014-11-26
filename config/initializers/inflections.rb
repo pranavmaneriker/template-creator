@@ -13,3 +13,9 @@
 # ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+
+ActiveSupport::Inflector.inflections do |inflect|
+
+   inflect.irregular 'resumedata', 'resumedatas' # or whatever you want your plural to be
+
+ end

@@ -8,12 +8,34 @@
 	<div class="col-md-6" id="form">
 		<!-- move this to an appropriate file -->
 		Here goes the form
+		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
+			<label>Name: </label><input type="text" name="name" />
+			<label>Resume Name </label><input type="text" name="rname" id="rname" />
+			<input type="submit" /	>
+		<% end %>
 	</div>
 </div>
 
 <!--<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
 <script src="http://builds.emberjs.com/tags/v1.5.0/ember.js"></script> -->
 
-<% javascript 'handlebars-v1.3.0' %> 
-<% javascript 'ember' %>
-<% javascript 'emberform' %>
+<script>
+// For verification of name before submission'
+$(function() {
+    $('#form').submit(function() {
+    	var rName = $("#rname").val()
+    	ret = false
+    	$.ajax({
+    		type: "GET",
+    		url: "/resumes/checkdata",
+    		data: {rname: rName},
+    		async: false,
+    		success: function(data){
+    					if(data.valid == "true") ret = true
+    					else alert("Name already in use. Use a new name")
+    				}
+    	})
+    	return ret
+    });
+});
+</script>

@@ -1,0 +1,7 @@
+<div class="row">
+	<ul>
+	<% @resume_list.each do |resume| %>
+		<li> <%= resume.resume_filename %>| <%= link_to "View/Edit", resumes_viewedit_path(:resume_id =>resume.id) %> | <%= link_to "Delete", resumes_delete_path(resume_id: resume.id), method: :delete, confirm: "Are you sure? All data for this resume will be lost" %> | Download TODO </li>
+	<% end %>
+	</ul>
+</div>
