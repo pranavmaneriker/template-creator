@@ -81,6 +81,11 @@
 
 			<input type="submit" class="btn btn-primary">
 			<input type="hidden" id="htmlpage" name="htmlpage" />
+			<input type="hidden" id="edu_index" name = "edu_index"/>
+			<input type="hidden" id="acadachievements_index" name = "acadachihevements_index"/>
+			<input type="hidden" id="workexp_index" name = "workexp_index"/>
+			<input type="hidden" id="paper_index" name = "paper_index"/>
+			<input type="hidden" id="extrac_index" name = "extrac_index"/>
 		<% end %>
 	</div>
 </div>
@@ -97,6 +102,11 @@
 	var extraC_index=0;
 	function updateResume()
 	{
+		$('#edu_index').val(edu_index);
+		$('#acadachievements_index').val(acadAchievements_index);
+		$('#workexp_index').val(workExp_index);
+		$('#paper_index').val(paper_index);
+		$('#extrac_index').val(extraC_index);
 		var data = "";
 		data = data + "<h1 class='name'>" + getData("name") + "</h1>";
 		data = data + "<hr>";
@@ -236,7 +246,7 @@
 				</div>';
 		edu_index += 1;
 		$("#educationgroup").append(data);
-
+		updateResume();
 	}
 	function addAcadAchievements()
 	{
@@ -249,6 +259,7 @@
 				</div>';
 		acadAchievements_index += 1;
 		$("#acadAchievementsgroup").append(data);
+		updateResume();
 	}
 	function addWorkExperience()
 	{
@@ -261,6 +272,7 @@
 				</div>';
 		workExp_index += 1;
 		$("#workExperiencegroup").append(data);
+		updateResume();
 	}
 	function addPaper()
 	{
@@ -273,6 +285,7 @@
 				</div>';
 		paper_index += 1;
 		$("#papersgroup").append(data);
+		updateResume();
 	}
 	function addExtraC()
 	{
@@ -285,6 +298,7 @@
 				</div>';
 		extraC_index += 1;
 		$("#extraCgroup").append(data);
+		updateresume();
 	}
 	$('#contactcheck').change(function () {
 		updateResume();
