@@ -39,9 +39,46 @@ class ResumesController < ApplicationController
 				@new_id = @new_resume_relations_entry.id
 
 				#save the actual resume
+
+				#name
 				@name = params[:name]
 				@resume_data_name = @new_resume_relations_entry.resume_data_values.build(field_name: "name", field_data: @name)
 				@resume_data_name.save()
+
+				#contact
+				@contactcheck = params[:contactcheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "contactcheck", field_data: @contactcheck).save()
+
+				@email = params[:email]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "email", field_data: @email).save()				
+
+				@contact = params[:contact]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "contact", field_data: @contact).save()
+
+				#education
+				@edu_check = params[:educationcheck]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "educationcheck", field_data: @edu_check).save()
+
+				e_index = params[:edu_index]
+				for i in 1..e_index
+					is = i.to_s
+
+					pn = "educheck"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "class"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "board"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "yearofpassing"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+
+					pn = "grade"+is
+					@new_resume_relations_entry.resume_data_values.build(field_name: pn, field_data: @params[pn.to_sym]).save()
+				end
+
 
 				#ends here
 
