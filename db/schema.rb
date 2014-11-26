@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141126042451) do
+ActiveRecord::Schema.define(:version => 20141126090217) do
 
   create_table "resume_data_values", :force => true do |t|
     t.integer  "resume_id"
@@ -26,14 +26,17 @@ ActiveRecord::Schema.define(:version => 20141126042451) do
 
   create_table "resume_relations", :force => true do |t|
     t.integer  "user_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.string   "resume_filename"
+    t.string   "resume_html_file_name"
+    t.string   "resume_html_content_type"
+    t.integer  "resume_html_file_size"
+    t.datetime "resume_html_updated_at"
   end
 
   add_index "resume_relations", ["resume_filename"], :name => "index_resume_relations_on_resume_filename"
   add_index "resume_relations", ["user_id"], :name => "index_resume_relations_on_user_id"
-  add_index "resume_relations", ["user_id"], :name => "index_resume_relations_on_user_id_and_resume_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"

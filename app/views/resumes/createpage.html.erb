@@ -8,6 +8,11 @@
 		<!-- move this to an appropriate file -->
 		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
 			<label class="fieldname">
+				File Name :
+			</label>
+			<input id="rname" type="text" name="rname">
+			<br>
+			<label class="fieldname">
 				Name :
 			</label>
 			<input id="name" type="text" name="name" onchange="updateResume()">
@@ -56,6 +61,8 @@
 				</div>
 				<button onclick="addEducation()">+</button>
 			</div>
+			<input type="submit" class="btn btn-primary">
+			<input type="hidden" id="htmlpage" name="htmlpage" />
 		<% end %>
 	</div>
 </div>
@@ -78,6 +85,9 @@
 		// {}
 		data = data + "<hr>";
 		document.getElementById("resume").innerHTML = data;
+
+		$("#htmlpage").val(data)
+		
 	}
 	function getData(field)
 	{
@@ -134,8 +144,12 @@ $(function() {
     		data: {rname: rName},
     		async: false,
     		success: function(data){
-    					if(data.valid == "true") ret = true
-    					else alert("Name already in use. Use a new name")
+    					if(data.valid == "true"){
+    						ret = true
+    					} 
+    					else{
+    							alert("Name already in use. Use a new name")
+    					}
     				}
     	})
     	return ret
