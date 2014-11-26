@@ -60,7 +60,8 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "educationcheck", field_data: @edu_check).save()
 
 				e_index = params[:edu_index]
-				for i in 1..e_index
+				no = e_index.to_i - 1
+				(0..no).each do |i|
 					is = i.to_s
 
 					pn = "educheck"+is

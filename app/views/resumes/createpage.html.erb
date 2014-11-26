@@ -20,7 +20,7 @@
 			<div class="checkbox">
 				<label class="fieldname">
 
-					<button onclick="$('#contactgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="contactcheck" name="contactcheck" checked> Contact :
+					<button type="button" onclick="$('#contactgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="contactcheck" name="contactcheck" checked> Contact :
 				</label>
 			</div>
 			<div class="formgroup" id="contactgroup">
@@ -37,49 +37,49 @@
 			<div class="checkbox">
 				<label class="fieldname">
 
-					<button onclick="$('#educationgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="educationcheck" name = "educationcheck" checked> Education :
+					<button type="button" onclick="$('#educationgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="educationcheck" name = "educationcheck" checked> Education :
 
 				</label>
 			</div>
 			<div class="formgroup" id="educationgroup">
-				<button type="button" onclick="addEducation()">+</button>
+				<button type="button" type="button" onclick="addEducation()">+</button>
 			</div>
 
 			
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#acadAchievementsgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="acadAchievementscheck" name="acadAchievementscheck"checked> Academic Achievements :
+					<button type="button" onclick="$('#acadAchievementsgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="acadAchievementscheck" name="acadAchievementscheck"checked> Academic Achievements :
 				</label>
 			</div>
 			<div class="formgroup" id="acadAchievementsgroup">
-				<button type="button" onclick="addAcadAchievements()">+</button>
+				<button type="button" type="button" onclick="addAcadAchievements()">+</button>
 			</div>
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" name="workExperiencecheck"checked> Work Experience :
+					<button type="button" onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" name="workExperiencecheck"checked> Work Experience :
 				</label>
 			</div>
 			<div class="formgroup" id="workExperiencegroup">
-				<button type="button" onclick="addWorkExperience()">+</button>
+				<button type="button" type="button" onclick="addWorkExperience()">+</button>
 			</div>
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#papersPublishedgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="papersPublishedcheck" checked> Papers Published :
+					<button type="button" onclick="$('#papersPublishedgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="papersPublishedcheck" checked> Papers Published :
 				</label>
 			</div>
 			<div class="formgroup" id="papersPublishedgroup">
-				<button onclick="addPapersPublished()">+</button>
+				<button type="button" onclick="addPapersPublished()">+</button>
 			</div>
 
 			<div class="checkbox">
 				<label class="fieldname">
-					<button onclick="$('#extraCgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="extraCcheck" checked> Extra Curricular Activities :
+					<button type="button" onclick="$('#extraCgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="extraCcheck" checked> Extra Curricular Activities :
 				</label>
 			</div>
 			<div class="formgroup" id="extraCgroup">
-				<button onclick="addExtraC()">+</button>
+				<button type="button" onclick="addExtraC()">+</button>
 			</div>
 			<!-- <label class="fieldname">
 				Hobbies :
@@ -224,13 +224,14 @@
 		var data = "";
 		data =data + '<div class="checkbox">\
 						<label class="fieldname">\
-							<input type="checkbox" id="educheck'+edu_index+'" checked onchange="updateResume()">\
+							<input type="checkbox" id="educheck'+edu_index+'" name="educheck'+edu_index+'" checked onchange="updateResume()">\
 						</label>\
 					</div>\
 					<label>\
 						Class / Degree\
 					</label>\
 					<input id="class'+edu_index+'" type="text" name="class'+edu_index+'" onchange="updateResume()">\
+					
 
 					<br>\
 					<label>\
