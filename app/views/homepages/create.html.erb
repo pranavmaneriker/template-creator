@@ -15,6 +15,16 @@
 			<label class="fieldname">
 				File Name :
 			</label>
+			<label class="fieldname">
+				Template Name :
+			</label>
+			<select id="css_template" name="css_template" form="form" onchange="change_template()">
+				<% @css_list.each do |item| %>
+					<option value="<%= item.template_name %>"><%= item.template_name %></option>
+				<% end %>
+				<option>test</option>
+			</select>
+			<hr>
 			<input id="rname" type="text" name="rname">
 			<br>
 			<label class="fieldname">
@@ -105,6 +115,7 @@
 	var workExp_index=0;
 	var paper_index=0;
 	var extraC_index=0;
+	var current_dynamic_css = '';
 	function updateResume()
 	{
 		var data = "";
@@ -227,9 +238,14 @@
     					<div id="footer-content">\
         				&copy; Me\
         				<br>\
-        				Feedback is not welcome :P.\
+
+        				Feedback is not welcome .\
+
     					</div>\
     					</div>'
+    	data = data + "<style id='dynamic_css'>"+current_dynamic_css+"</style>";
+		data = data + ''
+
 		document.getElementById("homepage").innerHTML = data;
 
 		$("#htmlpage").val(data)
@@ -330,6 +346,24 @@
 		$("#extraCgroup").slideToggle();
 	});
 	
+	function change_template()
+	{
+		//get the new css
+		var result=""
+		$.ajax({
+    		type: "GET",
+    		url: "/homepages/cssapi",
+    		data: {css_template: $("#css_template option:selected").text()},
+    		async: false,
+    		success: function(data){
+    					result=data
+    					console.log(data)
+    				}
+    	})
+		current_dynamic_css = result;
+		updateResume();
+	}
+
 	function toggleUpDown()
 	{
 		$(this).innerHTML = ($(this).innerHTML == '^')?'v':'^';

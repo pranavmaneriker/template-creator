@@ -26,3 +26,11 @@ gem uninstall wkhtmltopdf-binary
 
 Then install a latest release via direct download from:
 http://wkhtmltopdf.org/downloads.html
+
+__________________________________________________________________________
+
+Homepages css:
+In console:
+
+data = File.open(Rails.root.join("public","simple.css"))
+HomepagesCssTemplate.new(template_name:"simple", template_file: data).save()
