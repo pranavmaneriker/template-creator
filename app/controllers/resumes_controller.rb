@@ -228,7 +228,10 @@ class ResumesController < ApplicationController
 			redirect_to resumes_viewlist_path
 		end
 		PandocRuby.allow_file_paths = true
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 1665a2b5dd157e4be2883fb4aca1cd47f56f43ca
 		@reqFor = params[:format]
 		case @reqFor
 			when "html"
