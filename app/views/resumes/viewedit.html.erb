@@ -12,7 +12,7 @@
 			<label class="fieldname">
 				File Name :
 			</label>
-			<input id="rname" type="text" name="rname">
+			<input id="rname" type="text" name="rname" value = <%= @file_name %>>
 			<br>
 			<label class="fieldname">
 				Template Name :
@@ -102,20 +102,130 @@
 		<% end %>
 	</div>
 </div>
+<% n = getv(@r,"edu_index") %>
+<% (0..(Integer(n)-1)).each do |i| %>
+		<%= hidden_field_tag "ech"+i.to_s, getv(@r, "educheck"+i.to_s) %>
+		<%= hidden_field_tag "cl"+i.to_s, getv(@r, "class"+i.to_s) %>
+		<%= hidden_field_tag "bo"+i.to_s, getv(@r, "board"+i.to_s) %>
+		<%= hidden_field_tag "ye"+i.to_s, getv(@r, "yearofpassing"+i.to_s) %>
+		<%= hidden_field_tag "gr"+i.to_s, getv(@r, "grade"+i.to_s) %>
+<% end %>
+<% n = getv(@r,"acadachievements_index") %>
+<% (0..(Integer(n)-1)).each do |i| %>
+		<%= hidden_field_tag "ach"+i.to_s, getv(@r, "acadAchievcheck"+i.to_s) %>
+		<%= hidden_field_tag "acad"+i.to_s, getv(@r, "acadAchieve"+i.to_s) %>
+<% end %>
+<% n = getv(@r,"workexp_index") %>
+<% (0..(Integer(n)-1)).each do |i| %>
+		<%= hidden_field_tag "wch"+i.to_s, getv(@r, "workExpEntrycheck"+i.to_s) %>
+		<%= hidden_field_tag "wo"+i.to_s, getv(@r, "workexpentry"+i.to_s) %>
+<% end %>
+<% n = getv(@r,"paper_index") %>
+<% (0..(Integer(n)-1)).each do |i| %>
+		<%= hidden_field_tag "pch"+i.to_s, getv(@r, "paperEntrycheck"+i.to_s) %>
+		<%= hidden_field_tag "pa"+i.to_s, getv(@r, "paperentry"+i.to_s) %>
+<% end %>
+<% n = getv(@r,"extrac_index") %>
+<% (0..(Integer(n)-1)).each do |i| %>
+		<%= hidden_field_tag "exch"+i.to_s, getv(@r, "extraentrycheck"+i.to_s) %>
+		<%= hidden_field_tag "ex"+i.to_s, getv(@r, "extraentry"+i.to_s) %>
+<% end %>
 <div class="modal"><!-- Place at bottom of page --></div>
 <!--<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
 <script src="http://builds.emberjs.com/tags/v1.5.0/ember.js"></script> -->
 
 
 <script>
+	var edu_index= 0;
+	var acadAchievements_index=0;
+	var workExp_index=0;
+	var paper_index=0;
+	var extraC_index=0;
+
+	current_dynamic_css = "";
 	$( document ).ready(function() {
-	    var edu_index= parseInt('<%= getv(@r,"edu_index") %>')+1 ;
-	    console.log(edu_index);
-		var acadAchievements_index=0;
-		var workExp_index=0;
-		var paper_index=0;
-		var extraC_index=0;
-		var current_dynamic_css = '';
+		console.log('<%= @r.all %>');
+	    var edu_i= parseInt('<%= getv(@r,"edu_index") %>') ;
+		var acadAchievements_i=parseInt('<%= getv(@r,"acadachievements_index") %>');
+		var workExp_i=parseInt('<%= getv(@r,"workexp_index") %>');
+		var paper_i=parseInt('<%= getv(@r,"paper_index") %>');
+		var extraC_i=parseInt('<%= getv(@r,"extrac_index") %>');
+
+		$('#name').val('<%= getv(@r,"name") %>');
+		$('#email').val('<%= getv(@r,"email") %>');
+		$('#contact').val('<%= getv(@r,"contact") %>');
+		for(i=0;i<edu_i;i++)
+		{
+			addEducation();
+			if($('#ech'+i).val()=='on')$('#educheck'+i).prop("checked", true); else $('#educheck'+i).prop("checked", false);
+			$('#class'+i).val($('#cl'+i).val());
+			$('#board'+i).val($('#bo'+i).val());
+			$('#yearofpassing'+i).val($('#ye'+i).val());
+			$('#grade'+i).val($('#gr'+i).val());
+			$('#ech'+i).remove();
+			$('#cl'+i).remove();
+			$('#bo'+i).remove();
+			$('#ye'+i).remove();
+			$('#gr'+i).remove();
+		}
+		for(i=0;i<acadAchievements_i;i++)
+		{
+			addAcadAchievements();
+			if($('#ach'+i).val() == "on")$('#acadAchievcheck'+i).prop("checked", true); else $('#acadAchievcheck'+i).prop("checked", false);
+			$('#acadAchieve'+i).val($('#acad'+i).val());
+			$('#ach'+i).remove();
+			$('#acad'+i).remove();
+		}
+		for(i=0;i<workExp_i;i++)
+		{
+			addWorkExperience();
+			if($('#wch'+i).val() == "on")$('#workExpEntrycheck'+i).prop("checked", true); else $('#workExpEntrycheck'+i).prop("checked", false);
+			$('#workexpentry'+i).val($('#wo'+i).val());
+			$('#wch'+i).remove();
+			$('#wo'+i).remove();
+		}
+		for(i=0;i<paper_i;i++)
+		{
+			addPaper();
+			if($('#pch'+i).val() == "on")$('#paperEntrycheck'+i).prop("checked", true); else $('#paperEntrycheck'+i).prop("checked", false);
+			$('#paperentry'+i).val($('#pa'+i).val());
+			$('#pch'+i).remove();
+			$('#pa'+i).remove();
+		}
+		for(i=0;i<extraC_i;i++)
+		{
+			addExtraC();
+			if($('#exch'+i).val() == "on")$('#extraentrycheck'+i).prop("checked", true); else $('#extraentrycheck'+i).prop("checked", false); 
+			$('#extraentry'+i).val($('#ex'+i).val());
+			$('#exch'+i).remove();
+			$('#ex'+i).remove();
+		}
+		if('<%= getv(@r, "contactcheck") %>' == "on")$('#contactcheck').prop("checked", true); else $('#contactcheck').prop("checked", false);
+		if('<%= getv(@r, "educationcheck") %>' == "on")$('#educationcheck').prop("checked", true); else $('#educationcheck').prop("checked", false);
+		
+		if('<%= getv(@r, "acadAchievementscheck") %>' == "on")$('#acadAchievementscheck').prop("checked", true); else $('#acadAchievementscheck').prop("checked", false);
+		
+		if('<%= getv(@r, "workExperiencecheck") %>' == "on")$('#workExperiencecheck').prop("checked", true); else $('#workExperiencecheck').prop("checked", false);
+		
+		if('<%= getv(@r, "papercheck") %>' == "on")$('#papercheck').prop("checked", true); else $('#papercheck').prop("checked", false);
+		
+		if('<%= getv(@r, "extraCcheck") %>' == "on")$('#extraCcheck').prop("checked", true); else $('#extraCcheck').prop("checked", false);
+		
+		$('#css_template').val('<%= getv(@r, "css_template") %>');
+
+		var result=""
+		$.ajax({
+    		type: "GET",
+    		url: "/resumes/cssapi",
+    		data: {css_template: $("#css_template option:selected").text()},
+    		async: false,
+    		success: function(data){
+    					result=data
+    					console.log(data)
+    				}
+    	})
+		current_dynamic_css = result;
+		updateResume();
 	});
 	
 	function updateResume()
@@ -317,7 +427,7 @@
 				</div>';
 		extraC_index += 1;
 		$("#extraCgroup").append(data);
-		updateresume();
+		updateResume();
 	}
 	$('#contactcheck').change(function () {
 		updateResume();
@@ -409,21 +519,7 @@ $(function() {
     $('#form').submit(function(e) {
     	e.preventDefault();
     	var rName = $("#rname").val()
-    	ret = false
-    	$.ajax({
-    		type: "GET",
-    		url: "/resumes/checkdata",
-    		data: {rname: rName},
-    		async: false,
-    		success: function(data){
-    					if(data.valid == "true"){
-    						ret = true
-    					} 
-    					else{
-    							alert("Name already in use. Use a new name")
-    					}
-    				}
-    	})
+    	ret = true
     	if(ret){
     		$.post('/resumes/postdata', $(this).serialize(), function(data){
     			alert("Success!")

@@ -22,6 +22,14 @@ class ResumesController < ApplicationController
 		ActiveRecord::Base.transaction do
 		#creates new with this data
 		#destroy session variables after update TODO
+		if !(session[:existing].nil?)
+			@res_id = session[:resume_id];
+			if !(current_user.resume_relations.find(@res_id).nil?)
+				current_user.resume_relations.find(@res_id).destroy
+			end
+			session.delete(:existing)
+			session.delete(:resume_id)
+		end
 			@rname = params[:rname]
 			if @rname.blank?
 				flash[:error] = "Blank name not allowed. You forced the button to click. Now we force you to reenter the data"
@@ -68,6 +76,7 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "educationcheck", field_data: @edu_check).save()
 
 				e_index = params[:edu_index]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "edu_index", field_data: e_index).save()
 				no = Integer(e_index) -1;
 				if no>0
 					(0..no).each do |i|
@@ -95,6 +104,7 @@ class ResumesController < ApplicationController
 
 
 				e_index = params[:acadachievements_index]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "acadachievements_index", field_data: e_index).save()
 				no = Integer(e_index) - 1
 				if no>0
 					(0..no).each do |i|
@@ -113,6 +123,7 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "workExperiencecheck", field_data: @work_ex_check).save()
 
 				@ind = params[:workexp_index]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "workexp_index", field_data: @ind).save()
 				no = Integer(@ind) -1
 				if no>0
 					(0..no).each do |i|
@@ -131,6 +142,7 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "papercheck", field_data: @paper_check).save()
 
 				@ind = params[:paper_index]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "paper_index", field_data: @ind).save()
 				no = Integer(@ind) -1
 				if no>0
 					(0..no).each do |i|
@@ -149,6 +161,7 @@ class ResumesController < ApplicationController
 				@new_resume_relations_entry.resume_data_values.build(field_name: "extraCcheck", field_data: @extra_c_check).save()
 
 				@ind = params[:extrac_index]
+				@new_resume_relations_entry.resume_data_values.build(field_name: "extrac_index", field_data: @ind).save()
 				no = Integer(@ind) -1
 				if no>0
 					(0..no).each do |i|
@@ -193,6 +206,7 @@ class ResumesController < ApplicationController
 		session[:existing] = true
 		session[:resume_id] = @res_id
 		@r = current_user.resume_relations.find(@res_id).resume_data_values
+		@file_name = current_user.resume_relations.find(@res_id).resume_filename
 	end
 
 	def delete
