@@ -421,40 +421,6 @@ hr{
 }
 </style>-->
 
-<style id="coolloader">
-.modal {
-    display:    none;
-    position:   fixed;
-    z-index:    1000;
-    top:        100px;
-    height:     50%;
-    width:      50%;
-    background: rgba( 255, 255, 255, 1 ) 
-                url('http://jimpunk.net/Loading/wp-content/uploads/loading1.gif') 
-                50% 50% 
-                no-repeat;
-}
-
-body.loading {
-    overflow: auto;   
-}
-
-body.loading .modal {
-    display: block;
-}
-</style>
-
-<script id="cooljsloading">
-	$body = $("body");
-
-	$(document).on({
-	    ajaxStart: function() { $body.addClass("loading");    },
-	     ajaxStop: function() { $body.removeClass("loading"); }    
-	});
-
-</script>
-
-
 <script>
 // For verification of name before submission'
 $(function() {

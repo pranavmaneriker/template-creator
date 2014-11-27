@@ -17,10 +17,10 @@ Margin (Left)			 <div id="body_left-margin" class = "slider1"></div>
 Font Size (Title)		 <div id="title_font-size" class = "slider"></div>
 Font Size (Headings)	 <div id="section_title_font-size" class = "slider"></div>
 Font Size (Content)		 <div id="body_font-size" class = "slider"></div>
-<form>
+<form id="form">
 <input type="hidden" id="css_res" form="css_res"/>
 File name 				<input type="text" name="file_name">
-<button onclick="save()">Save template!</button>
+<button type="button" onclick="save()" class="btn">Save template!</button>
 </form>
 </pre>
 </div>
@@ -36,7 +36,28 @@ File name 				<input type="text" name="file_name">
 <script type="text/javascript">
 	function save()
 	{
-		
+	    	var rName = $("#file_name").val()
+	    	ret = false
+	    	$.ajax({
+	    		type: "GET",
+	    		url: "/resumes/checkcssfile",
+	    		data: {rname: rName},
+	    		async: false,
+	    		success: function(data){
+	    					if(data.valid == "true"){
+	    						ret = true
+	    					} 
+	    					else{
+	    							alert("Name already in use. Use a new name")
+	    					}
+	    				}
+	    	})
+	    	if(ret){
+	    		$.post('/resumes/postcssfile', $("#form").serialize(), function(data){
+	    			alert("Success!")
+	    			window.location.href= "/resumes/viewlist"
+	    		});
+			}	
 	}
 	function refresh()
 	{

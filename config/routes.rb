@@ -8,7 +8,7 @@ TestApp::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate, :cssapi] 
+  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate, :cssapi, :checkcssfile, :postcssfile] 
 
   resources :homepages, only: [ :home, :create ]
 
@@ -31,6 +31,8 @@ TestApp::Application.routes.draw do
   match '/resumes/createtemplate', to: 'resumes#createtemplate'
   match '/resumes/download', to: 'resumes#download'
   match '/resumes/cssapi', to: "resumes#cssapi", via: :get
+  match '/resumes/checkcssfile', to: "resumes#checkcssfile", via: :get
+  match '/resumes/postcssfile', to: "resumes#postcssfile", via: :post
 
   match '/homepages/create', to: 'homepages#create'
 
