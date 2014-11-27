@@ -1,0 +1,11 @@
+<div class="row">
+	<table class="table table-hover">
+	<% @homepage_list.each do |homepage| %>
+		<tr> <td><%= homepage.homepage_name %></td><td> 
+			<%= link_to "Delete", homepages_delete_path(homepage_id: homepage.id), method: :delete, confirm: "Are you sure? All data for this resume will be lost" %> </td> 
+			<td>Download 
+			<%= link_to "html", homepages_download_path(homepage_id: homepage.id) %> </td> 
+		</tr>
+	<% end %>
+	</table>
+</div>

@@ -1,14 +1,27 @@
 <%= provide(:title, "Create Homepage" ) %>
+<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Italianno' rel='stylesheet' type='text/css'>
+
 <div id="create_page" class="row">
 	<!-- <link href="ssg-style.css" rel="stylesheet"> -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Italianno' rel='stylesheet' type='text/css'>
 	<div class="col-md-6">
-		<div id="homepage" class="page"></div>
+		<div id="homepage" class="page">
+
+		</div>
 	</div>
 	<div class="col-md-6" id="form_div">
 		<!-- move this to an appropriate file -->
-		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
+		<%= form_tag(homepages_postdata_path, method: "post", id: "form") do %>
+			<label class="fieldname">
+				Template Name :
+			</label>
+			<select id="css_template" name="css_template" form="form" onchange="change_template()">
+				<% @css_list.each do |item| %>
+					<option value="<%= item.template_name %>"><%= item.template_name %></option>
+				<% end %>
+				<option>test</option>
+			</select>
+			<hr>
 			<label class="fieldname">
 				File Name :
 			</label>
@@ -102,6 +115,7 @@
 	var workExp_index=0;
 	var paper_index=0;
 	var extraC_index=0;
+	var current_dynamic_css = '';
 	function updateResume()
 	{
 		var data = "";
@@ -115,7 +129,7 @@
     					<div id="menu-content">\
         				<div id="left-menu">\
         				<ul>'
-        data = data + '<li><a href="create">Home</a></li>'
+        data = data + '<li><a href="#home">Home</a></li>'
 
 
         data = data + '<li><a href="#about">About Me</a></li>'
@@ -224,12 +238,18 @@
     					<div id="footer-content">\
         				&copy; Me\
         				<br>\
-        				Feedback is not welcome :P.\
+
+        				Feedback is not welcome .\
+
     					</div>\
     					</div>'
+    	data = data + "<style id='dynamic_css'>"+current_dynamic_css+"</style>";
+		data = data + ''
+
 		document.getElementById("homepage").innerHTML = data;
 
 		$("#htmlpage").val(data)
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		
 	}
 	function getData(field)
@@ -326,6 +346,24 @@
 		$("#extraCgroup").slideToggle();
 	});
 	
+	function change_template()
+	{
+		//get the new css
+		var result=""
+		$.ajax({
+    		type: "GET",
+    		url: "/homepages/cssapi",
+    		data: {css_template: $("#css_template option:selected").text()},
+    		async: false,
+    		success: function(data){
+    					result=data
+    					console.log(data)
+    				}
+    	})
+		current_dynamic_css = result;
+		updateResume();
+	}
+
 	function toggleUpDown()
 	{
 		$(this).innerHTML = ($(this).innerHTML == '^')?'v':'^';
@@ -335,6 +373,7 @@
 .page{
 	/*padding : 10pt;*/
 	width : 70%;
+	float: left;
 	/*height : 1000px;*/
 	/*margin: 10pt;*/
 	border: solid black 1pt;
@@ -384,114 +423,7 @@ table{
 td{
 	font-size: 14px;
 }
-body {
-margin: 0;
-font: 14px/1.6 Raleway, Georgia, serif;
-color: #222222;
-background: #ffffff;
-}#header {
-clear: both;
-height: 100px;
-width: 100%;
-/*position: fixed;*/
-top: 0;
-background: #770f0f;
-font: 400 80px Italianno, Georgia, serif;
-color: #ffffff;
-}#header-content {
-margin: 0 auto;
-padding: 0;
-width: 1000px;
-/*background-size: 70px;*/
-}#menu {
-clear: both;
-height: 40px;
-width: 100%;
-/*position: fixed;*/
-top: 100px;
-background: #f2f1eb;
-}#menu-content {
-width: 1000px;
-margin: 0 auto;
-padding: 10px 0 0 0;
-}#left-menu {
-float: left;
-font: 18px/1.6 Raleway, Georgia, serif;
-}#left-menu ul {
-overflow: hidden;
-padding: 0;
-margin: 0;
-list-style-type: none;
-}#left-menu ul li {
-float: left;
-margin: 0 30px 0 0;
-}#left-menu ul li a {
-display: block;
-text-decoration: none;
-border: none;
-color: #222222;
-}#left-menu ul li a:hover {
-color: #222222;
-border-bottom: 2px solid #770f0f;
-}
-#menugap {
-clear: both;
-height: 20px;
-width: 100%;
-position: fixed;
-top: 140px;
-background: #ffffff;
-}
-#container {
-clear: both;
-margin: 120px auto 0 auto;
-}
-#content {
-clear: both;
-width: 1000px;
-margin: 0 auto;
-}
-#footer {
-clear: both;
-margin: 20px auto 0 auto;
-width: 100%;
-min-height: 50px;
-background: #770f0f;
-color: #ffffff;
-/*vertical-align: bottom;*/
-/*position: absolute;
-    bottom: 0px;
-    width: 100%;*/}
-#footer-content {
-width: 1000px;
-margin: 0 auto;
-padding: 0;
-}
-#left-mid-column {
-float: left;
-width: 650px;
-margin: 0;
-padding: 0;
-}
-.clear {
-clear: both;
-}
-a {
-color: #770f0f;
-text-decoration: none;
-}
-a.anchor {
-position: relative;
-top: -50px;
-visibility: hidden;
-}
-h1 {
-margin-top: 50px;
-color: #770f0f;
-}
-h2 {
-margin-top: 50px;
-}
+
 </style>
 
 <script>
@@ -503,7 +435,7 @@ $(function() {
     	ret = false
     	$.ajax({
     		type: "GET",
-    		url: "/resumes/checkdata",
+    		url: "/homepages/checkdata",
     		data: {rname: rName},
     		async: false,
     		success: function(data){
@@ -516,9 +448,9 @@ $(function() {
     				}
     	})
     	if(ret){
-    		$.post('/resumes/postdata', $(this).serialize(), function(data){
+    		$.post('/homepages/postdata', $(this).serialize(), function(data){
     			console.log(data);
-    			window.location.href="/resumes/viewlist"
+    			window.location.href="/homepages/view"
     		});
 		}
     });

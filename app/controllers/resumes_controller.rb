@@ -251,4 +251,32 @@ class ResumesController < ApplicationController
 		send_data Paperclip.io_adapters.for(ResumesCssTemplate.find_by_template_name(@css_fname).template_file).read
 	end
 
+	def checkcssfile
+		@new_name = params[:file_name]
+		@old_r = ResumesCssTemplate.find_by_template_name(@new_name)
+		if @old_r.blank? && !(@new_name.blank?)
+			render :json => {"valid" => "true"}
+		else
+			render :json => {"valid" => "false"}
+		end
+	end
+
+	def postcssfile
+		ActiveRecord::Base.transaction do
+			@new_name = params[:file_name]
+			@old_r = ResumesCssTemplate.find_by_template_name(@new_name)
+			if !(@old_r.blank?) || (@new_name.blank?)
+				flash[:error] = "You forcibly posted an invalid css file. Your css file will be lost"
+				redirect_to root_url
+			else
+				file = StringIO.new('<style>' + params[:css_res] + '</style>')
+
+				file.class.class_eval { attr_accessor :original_filename, :content_type }
+	  			file.original_filename = @new_name + ".css"
+	  			file.content_type = "text/css" # you could set this manually aswell if needed e.g 'application/pdf'
+				ResumesCssTemplate.new(template_name:@new_name, template_file: file).save()
+			end
+			file.close
+		end
+	end
 end

@@ -11,7 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141126235158) do
+ActiveRecord::Schema.define(:version => 20141127063216) do
+
+  create_table "homepages", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "homepage_name"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "homepage_html_file_name"
+    t.string   "homepage_html_content_type"
+    t.integer  "homepage_html_file_size"
+    t.datetime "homepage_html_updated_at"
+  end
+
+  add_index "homepages", ["homepage_name"], :name => "index_homepages_on_homepage_name"
+  add_index "homepages", ["user_id"], :name => "index_homepages_on_user_id"
+
+  create_table "homepages_css_templates", :force => true do |t|
+    t.string   "template_name"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "template_file_file_name"
+    t.string   "template_file_content_type"
+    t.integer  "template_file_file_size"
+    t.datetime "template_file_updated_at"
+  end
+
+  add_index "homepages_css_templates", ["template_name"], :name => "index_homepages_css_templates_on_template_name"
 
   create_table "resume_data_values", :force => true do |t|
     t.integer  "resume_id"

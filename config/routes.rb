@@ -8,9 +8,9 @@ TestApp::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate, :cssapi] 
+  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate, :cssapi, :checkcssfile, :postcssfile] 
 
-  resources :homepages, only: [ :home, :create ]
+  resources :homepages, only: [ :home, :create, :postdata, :view, :delete, :download, :checkdata, :cssapi ]
 
   match '/signup', to: "users#new"
   match "/help", to: 'static_pages#help'
@@ -31,8 +31,16 @@ TestApp::Application.routes.draw do
   match '/resumes/createtemplate', to: 'resumes#createtemplate'
   match '/resumes/download', to: 'resumes#download'
   match '/resumes/cssapi', to: "resumes#cssapi", via: :get
+  match '/resumes/checkcssfile', to: "resumes#checkcssfile", via: :get
+  match '/resumes/postcssfile', to: "resumes#postcssfile", via: :post
 
   match '/homepages/create', to: 'homepages#create'
+  match '/homepages/postdata',to: 'homepages#postdata', via: :post
+  match '/homepages/view', to:'homepages#view'
+  match '/homepages/delete', to:'homepages#delete'
+  match '/homepages/checkdata', to:'homepages#checkdata'
+  match '/homepages/download', to:'homepages#download'
+  match '/homepages/cssapi', to: "homepages#cssapi", via: :get
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
