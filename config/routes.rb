@@ -7,7 +7,7 @@ TestApp::Application.routes.draw do
 
   resources :sessions, only: [:new, :create, :destroy]
 
-  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate] 
+  resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate, :cssapi] 
 
   resources :homepages, only: [ :home, :create ]
 
@@ -29,8 +29,10 @@ TestApp::Application.routes.draw do
   match '/resumes/delete', to: 'resumes#delete'
   match '/resumes/createtemplate', to: 'resumes#createtemplate'
   match '/resumes/download', to: 'resumes#download'
+  match '/resumes/cssapi', to: "resumes#cssapi", via: :get
 
   match '/homepages/create', to: 'homepages#create'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

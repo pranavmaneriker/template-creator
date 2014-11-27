@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141126191818) do
+ActiveRecord::Schema.define(:version => 20141126235158) do
 
   create_table "resume_data_values", :force => true do |t|
     t.integer  "resume_id"
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20141126191818) do
     t.integer  "template_file_file_size"
     t.datetime "template_file_updated_at"
   end
+
+  add_index "resumes_css_templates", ["template_name"], :name => "index_resumes_css_templates_on_template_name"
 
   create_table "users", :force => true do |t|
     t.string   "name"

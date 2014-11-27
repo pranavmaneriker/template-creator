@@ -19,13 +19,15 @@ class ResumesController < ApplicationController
 	end
 
 	def postdata
+		ActiveRecord::Base.transaction do
 		#creates new with this data
+
 			@rname = params[:rname]
 			if @rname.blank?
 				flash[:error] = "Blank name not allowed. You forced the button to click. Now we force you to reenter the data"
 				redirect_to resumes_createpage_path
 			end
-			file = StringIO.new("<html><body>" + params[:htmlpage] + "</html></body>");
+			file = StringIO.new('<html><head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"></head><body>' + params[:htmlpage] + '</html></body>');
 
 			file.class.class_eval { attr_accessor :original_filename, :content_type }
   			file.original_filename = @rname+".html"
@@ -166,6 +168,7 @@ class ResumesController < ApplicationController
 			end
 			#change this to created path
 			file.close
+		end
 	end
 
 	def checkdata
@@ -218,6 +221,11 @@ class ResumesController < ApplicationController
 				flash[:error] = "Invalid/unsupported format specified"
 				redirect_to root_url
 		end  
+	end
+
+	def cssapi
+		@css_fname = params[:css_template]
+		send_data Paperclip.io_adapters.for(ResumesCssTemplate.find_by_template_name(@css_fname).template_file).read
 	end
 
 end
