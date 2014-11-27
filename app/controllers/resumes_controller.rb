@@ -21,7 +21,7 @@ class ResumesController < ApplicationController
 	def postdata
 		ActiveRecord::Base.transaction do
 		#creates new with this data
-
+		#destroy session variables after update TODO
 			@rname = params[:rname]
 			if @rname.blank?
 				flash[:error] = "Blank name not allowed. You forced the button to click. Now we force you to reenter the data"
@@ -188,8 +188,11 @@ class ResumesController < ApplicationController
 	end
 
 	def viewedit
+		@css_list = ResumesCssTemplate.all
 		@res_id = params[:resume_id]
-		@resume = current_user.resume_relations.find(@res_id).resume_data_values
+		session[:existing] = true
+		session[:resume_id] = @res_id
+		@r = current_user.resume_relations.find(@res_id).resume_data_values
 	end
 
 	def delete
