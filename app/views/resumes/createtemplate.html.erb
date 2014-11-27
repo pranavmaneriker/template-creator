@@ -52,25 +52,25 @@ File name 				<input type="text" name="file_name">
 		$('.heading').css("color", "#"+$('#section_title_color').val());
 		$('.content').css("color", "#"+$('#body_color').val());
 		var data = "";
-		data = data + ".text{\n\
-			margin-top: "+$('#body_top-margin').slider("value")+";\n\
-			margin-bottom: "+$('#body_top-margin').slider("value")+";\n\
-			margin-left: "+$('#body_left-margin').slider("value")+";\n\
-			margin-right: "+$('#body_left-margin').slider("value")+";\n\
+		data = data + ".page{\n\
+			padding-top: "+$('#body_top-margin').slider("value")+";\n\
+			padding-bottom: "+$('#body_top-margin').slider("value")+";\n\
+			padding-left: "+$('#body_left-margin').slider("value")+";\n\
+			padding-right: "+$('#body_left-margin').slider("value")+";\n\
 		}\n\
-		.heading{\n\
+		.section_title{\n\
 			font-size: "+$('#section_title_font-size').slider("value")+";\n\
 			color: "+"#"+$('#section_title_color').val()+";\n\
 		}\n\
-		.content{\n\
+		.body{\n\
 			font-size: "+$('#body_font-size').slider("value")+";\n\
 			color: "+"#"+$('#body_color').val()+";\n\
 		}\n\
-		.title{\n\
+		h1{\n\
 			font-size: "+$('#title_font-size').slider("value")+";\n\
 			color: "+"#"+$('#name_color').val()+";\n\
 		}\n\
-		.preview{\n\
+		.body{\n\
 			background-color: "+"#"+$('#background_color').val() +";\n\
 		}";
 		$('#css_res').val(data);
