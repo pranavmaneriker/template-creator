@@ -17,7 +17,8 @@ gem "paperclip", "~> 4.2"
 gem "pandoc-ruby", "0.7.5"
 gem 'wicked_pdf'
 gem 'mathjax-rails'
-
+gem 'railroady'
+gem 'rails-erd'
 
 #gem 'ember-rails'
 #gem 'ember-source', '1.8.0' # or the version you need
