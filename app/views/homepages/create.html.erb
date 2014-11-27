@@ -1,10 +1,13 @@
 <%= provide(:title, "Create Homepage" ) %>
+<link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Italianno' rel='stylesheet' type='text/css'>
+
 <div id="create_page" class="row">
 	<!-- <link href="ssg-style.css" rel="stylesheet"> -->
-    <link href='http://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Italianno' rel='stylesheet' type='text/css'>
 	<div class="col-md-6">
-		<div id="homepage" class="page"></div>
+		<div id="homepage" class="page">
+
+		</div>
 	</div>
 	<div class="col-md-6" id="form_div">
 		<!-- move this to an appropriate file -->
@@ -115,7 +118,7 @@
     					<div id="menu-content">\
         				<div id="left-menu">\
         				<ul>'
-        data = data + '<li><a href="create">Home</a></li>'
+        data = data + '<li><a href="#home">Home</a></li>'
 
 
         data = data + '<li><a href="#about">About Me</a></li>'
@@ -230,6 +233,7 @@
 		document.getElementById("homepage").innerHTML = data;
 
 		$("#htmlpage").val(data)
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		
 	}
 	function getData(field)
@@ -335,6 +339,7 @@
 .page{
 	/*padding : 10pt;*/
 	width : 70%;
+	float: left;
 	/*height : 1000px;*/
 	/*margin: 10pt;*/
 	border: solid black 1pt;

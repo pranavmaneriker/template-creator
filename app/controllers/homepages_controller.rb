@@ -16,7 +16,8 @@ class HomepagesController < ApplicationController
 				flash[:error] = "You forcibly posted an invalid html file. Your html file will be lost"
 				redirect_to root_url
 			else
-				file = StringIO.new('<html><body>' + params[:htmlpage] + '</body></html>')
+				bootstrap = File.read(Rails.root.join('public','bootstrap.min.css'));
+				file = StringIO.new('<html><body><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><style>'+bootstrap+'</style>' + params[:htmlpage] + '</body></html>')
 
 				file.class.class_eval { attr_accessor :original_filename, :content_type }
 	  			file.original_filename = @new_name + ".html"
