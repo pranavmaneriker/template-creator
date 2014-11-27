@@ -139,7 +139,6 @@ GEM
     wicked_pdf (0.11.0)
       rails
     will_paginate (3.0.3)
-    wkhtmltopdf-binary (0.9.9.3)
 
 PLATFORMS
   ruby
@@ -162,4 +161,3 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   wicked_pdf
   will_paginate (= 3.0.3)
-  wkhtmltopdf-binary

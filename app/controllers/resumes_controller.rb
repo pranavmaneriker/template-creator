@@ -29,7 +29,7 @@ class ResumesController < ApplicationController
 			end
 			
 			bootstrap = File.read(Rails.root.join('public','bootstrap.min.css'));
-			file = StringIO.new('<html><body><style>' + bootstrap + '</style>' + params[:htmlpage] + '</body></html>')
+			file = StringIO.new('<html><body><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><style>' + bootstrap + '</style>' + params[:htmlpage] + '</body></html>')
 
 			file.class.class_eval { attr_accessor :original_filename, :content_type }
   			file.original_filename = @rname+".html"
@@ -216,7 +216,7 @@ class ResumesController < ApplicationController
 			when "html"
 				send_file @resume.resume_html.path, filename: @resume.resume_filename, type: "text/html", disposition: 'inline'
 			when "pdf"
-				send_data WickedPdf.new.pdf_from_html_file(@resume.resume_html.path), filename: "download.pdf", type: "application/pdf", dispostion: "inline"	
+				send_data WickedPdf.new.pdf_from_html_file(@resume.resume_html.path, :javascript_delay=>5000), filename: "download.pdf", type: "application/pdf", dispostion: "inline"	
 			when "latex"
 				send_data PandocRuby.convert(@resume.resume_html.path, :from => :html, :to => :latex), filename: "download.tex", type: "application/x-tex", dispostion: "inline"
 			when "markdown"
