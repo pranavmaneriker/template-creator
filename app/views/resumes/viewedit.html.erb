@@ -1,1 +1,435 @@
-<%= @resume %>
+
+
+<%= provide(:title, "Create Resume" ) %>
+<div id="create_page" class="row">
+	<div class="col-md-6">
+		<div id="resume" class="page"></div>
+	</div>
+
+	<div class="col-md-6" id="form_div">
+		<!-- move this to an appropriate file -->
+		<%= form_tag(resumes_postdata_path, method: "post", id: "form") do %>
+			<label class="fieldname">
+				File Name :
+			</label>
+			<input id="rname" type="text" name="rname">
+			<br>
+			<label class="fieldname">
+				Template Name :
+			</label>
+			<select id="css_template" name="css_template" form="form" onchange="change_template()">
+				<% @css_list.each do |item| %>
+					<option value="<%= item.template_name %>"><%= item.template_name %></option>
+				<% end %>
+			</select>
+			<hr>
+			<br>
+			<label class="fieldname">Resume data:</label>
+			<label class="fieldname">
+				Name :
+			</label>
+			<input id="name" type="text" name="name" onchange="updateResume()">
+			<br>
+			<div class="checkbox">
+				<label class="fieldname">
+					<button type="button" onclick="$('#contactgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="contactcheck" name="contactcheck" checked> Contact :
+				</label>
+			</div>
+			<div class="formgroup" id="contactgroup">
+				<label>
+					Email id :
+				</label>
+				<input id="email" type="text" name="email" onchange="updateResume()">
+				<br>
+				<label>
+					Contact number :
+				</label>
+				<input id="contact" type="text" name="contact" onchange="updateResume()">
+			</div>
+			<div class="checkbox">
+				<label class="fieldname">
+					<button type="button" onclick="$('#educationgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="educationcheck" name = "educationcheck" checked> Education :
+				</label>
+			</div>
+			<div class="formgroup" id="educationgroup">
+				<button type="button" onclick="addEducation()">+</button>
+			</div>
+
+			
+			<div class="checkbox">
+				<label class="fieldname">
+					<button type="button" onclick="$('#acadAchievementsgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="acadAchievementscheck" name="acadAchievementscheck"checked> Academic Achievements :
+				</label>
+			</div>
+			<div class="formgroup" id="acadAchievementsgroup">
+				<button type="button" onclick="addAcadAchievements()">+</button>
+			</div>
+
+			<div class="checkbox">
+				<label class="fieldname">
+					<button type="button" onclick="$('#workExperiencegroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="workExperiencecheck" name="workExperiencecheck"checked> Work Experience :
+				</label>
+			</div>
+			<div class="formgroup" id="workExperiencegroup">
+				<button type="button" onclick="addWorkExperience()">+</button>
+			</div>
+
+			<div class="checkbox">
+				<label class="fieldname">
+					<button type="button" onclick="$('#papersgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="papercheck" name="papercheck"checked> Papers Published :
+				</label>
+			</div>
+			<div class="formgroup" id="papersgroup">
+				<button type="button" onclick="addPaper()">+</button>
+			</div>
+
+			<div class="checkbox">
+				<label class="fieldname">
+					<button type="button" onclick="$('#extraCgroup').slideToggle(); toggleUpDown();">^</button><input type="checkbox" id="extraCcheck" name="extraCcheck"checked> Extra Curricular Activities :
+				</label>
+			</div>
+			<div class="formgroup" id="extraCgroup">
+				<button type="button" onclick="addExtraC()">+</button>
+			</div>
+
+			<input type="submit" class="btn btn-primary">
+			<input type="hidden" id="htmlpage" name="htmlpage" />
+			<input type="hidden" id="edu_index" name = "edu_index"/>
+			<input type="hidden" id="acadachievements_index" name = "acadachievements_index"/>
+			<input type="hidden" id="workexp_index" name = "workexp_index"/>
+			<input type="hidden" id="paper_index" name = "paper_index"/>
+			<input type="hidden" id="extrac_index" name = "extrac_index"/>
+		<% end %>
+	</div>
+</div>
+<div class="modal"><!-- Place at bottom of page --></div>
+<!--<script src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+<script src="http://builds.emberjs.com/tags/v1.5.0/ember.js"></script> -->
+
+
+<script>
+	$( document ).ready(function() {
+	    var edu_index= parseInt('<%= getv(@r,"edu_index") %>')+1 ;
+	    console.log(edu_index);
+		var acadAchievements_index=0;
+		var workExp_index=0;
+		var paper_index=0;
+		var extraC_index=0;
+		var current_dynamic_css = '';
+	});
+	
+	function updateResume()
+	{
+		$('#edu_index').val(edu_index);
+		$('#acadachievements_index').val(acadAchievements_index);
+		$('#workexp_index').val(workExp_index);
+		$('#paper_index').val(paper_index);
+		$('#extrac_index').val(extraC_index);
+		var data = "";
+		data = data + "<h1 class='name'>" + getData("name") + "</h1>";
+		data = data + "<hr>";
+		if(check("contactcheck"))
+		{
+			data = data + "<div class='contacts'>";
+			data = data + "Email id : " + getData("email") + "<br>" + "Contact : " + getData('contact')+ "</div>";
+		}
+		// data = data + "<hr>";
+		if(check("educationcheck"))
+		{
+			data = data + '<label class="section_title">Educational Qualifications</label><table class="table table-condensed">\
+							  <tr>\
+							  	<th>Class</th>\
+							  	<th>Board / University</th>\
+							  	<th>Year of Passing</th>\
+							  	<th>Grade / percentage</th>\
+							  </tr>'
+			var i;
+			for(i=0; i<edu_index; i++)
+			{
+				if(check("educheck"+i))
+				{
+					data = data + "<tr><td>"+getData("class"+i)+"</td><td>"+getData("board"+i)+"</td><td>"+getData("yearofpassing"+i)+"</td><td>"+getData("grade"+i)+"</td><td></tr>"
+				}
+			}
+			data = data + "</table>";
+		}
+		if(check("acadAchievementscheck"))
+		{
+			data = data + '<label class="section_title">Academic Achievements</label>\
+							<ul class="list">'
+			var i;
+			for(i=0; i<acadAchievements_index; i++)
+			{
+				if(check("acadAchievcheck"+i))
+				{
+					data = data + "<li>" + getData("acadAchieve"+i)+"</li>"
+				}
+			}
+			data = data + "</ul>";
+		}
+
+		if(check("workExperiencecheck"))
+		{
+			data = data + '<label class="section_title">Work Experience</label>\
+							<ul class="list">'
+			var i;
+			for(i=0; i<workExp_index; i++)
+			{
+				if(check("workExpEntrycheck"+i))
+				{
+					data = data + "<li>" + getData("workexpentry"+i)+"</li>"
+				}
+			}
+			data = data + "</ul>";
+		}
+		if(check("papercheck"))
+		{
+			data = data + '<label class="section_title">Papers Published</label>\
+							<ul class="list">'
+			var i;
+			for(i=0; i<paper_index; i++)
+			{
+				if(check("paperEntryCheck"+i))
+				{
+					data = data + "<li>" + getData("paperEntry"+i)+"</li>"
+				}
+			}
+			data = data + "</ul>";
+		}
+		if(check("extraCcheck"))
+		{
+			data = data + '<label class="section_title">Extra Curricular Achievements</label>\
+							<ul class="list">'
+			var i;
+			for(i=0; i<extraC_index; i++)
+			{
+				if(check("extraentrycheck"+i))
+				{
+					data = data + "<li>" + getData("extraentry"+i)+"</li>"
+				}
+			}
+			data = data + "</ul>";
+		}
+		data = data + "<style id='dynamic_css'>"+current_dynamic_css+"</style>";
+		data = data + ''
+		// data = data + '<label class="section_title">Hobbies</label>'
+
+		// if(check("educationcheck"))
+		// {}
+		
+		document.getElementById("resume").innerHTML = data;
+
+		$("#htmlpage").val(data)
+		
+	}
+	function getData(field)
+	{
+		var s = document.getElementById(field).value;
+		//write code to remove tags etc.
+		// s=s.replace(/&amp;/g,'&amp;amp;');
+		// s=s.replace(/&lt;/g,'&amp;lt;');
+		// s=s.replace(/&gt;/g,'&amp;gt;');
+		// s=s.replace(/\n/g,'&lt;br /&gt;\n');
+		// s=s.replace(/\r/g,'');
+		return s;
+	}
+	function check(str)
+	{
+		if(document.getElementById(str).checked)
+			return true;
+		else
+			return false;
+	}
+	function addEducation()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+						<label class="fieldname">\
+							<input type="checkbox" id="educheck'+edu_index+'" name ="educheck'+edu_index+'"checked> Class :\
+						</label>\
+					</div>\
+					<input id="class'+edu_index+'" type="text" name="class'+edu_index+'" onchange="updateResume()">\
+					<br>\
+					<label>\
+						Board / University\
+					</label>\
+					<input id="board'+edu_index+'" type="text" name="board'+edu_index+'" onchange="updateResume()">\
+					<label>\
+						Year of passing\
+					</label>\
+					<input id="yearofpassing'+edu_index+'" type="text" name="yearofpassing'+edu_index+'" onchange="updateResume()">\
+					<label>\
+						Percentage / grade\
+					</label>\
+					<input id="grade'+edu_index+'" type="text" name="grade'+edu_index+'" onchange="updateResume()">\
+				</div>';
+		edu_index += 1;
+		$("#educationgroup").append(data);
+		updateResume();
+	}
+	function addAcadAchievements()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+							<input type="checkbox" id="acadAchievcheck'+acadAchievements_index+'" name="acadAchievcheck'+acadAchievements_index+'" checked>\
+					</div>\
+					<input id="acadAchieve'+acadAchievements_index+'" type="text" name="acadAchieve'+acadAchievements_index+'" onchange="updateResume()">\
+					<br>\
+				</div>';
+		acadAchievements_index += 1;
+		$("#acadAchievementsgroup").append(data);
+		updateResume();
+	}
+	function addWorkExperience()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+							<input type="checkbox" id="workExpEntrycheck'+workExp_index+'" name="workExpEntrycheck'+workExp_index+'" checked>\
+					</div>\
+					<input id="workexpentry'+workExp_index+'" type="text" name="workexpentry'+workExp_index+'" onchange="updateResume()">\
+					<br>\
+				</div>';
+		workExp_index += 1;
+		$("#workExperiencegroup").append(data);
+		updateResume();
+	}
+	function addPaper()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+							<input type="checkbox" id="paperEntryCheck'+paper_index+'"  name ="paperEntryCheck'+paper_index+'" checked>\
+					</div>\
+					<input id="paperEntry'+paper_index+'" type="text" name="paperEntry'+paper_index+'" onchange="updateResume()">\
+					<br>\
+				</div>';
+		paper_index += 1;
+		$("#papersgroup").append(data);
+		updateResume();
+	}
+	function addExtraC()
+	{
+		var data = "";
+		data =data + '<div class="checkbox">\
+							<input type="checkbox" id="extraentrycheck'+extraC_index+'" name="extraentrycheck'+extraC_index+'" checked>\
+					</div>\
+					<input id="extraentry'+extraC_index+'" type="text" name="extraentry'+extraC_index+'" onchange="updateResume()">\
+					<br>\
+				</div>';
+		extraC_index += 1;
+		$("#extraCgroup").append(data);
+		updateresume();
+	}
+	$('#contactcheck').change(function () {
+		updateResume();
+		$("#contactgroup").slideToggle();
+	});
+	$('#educationcheck').change(function () {
+		updateResume();
+		$("#educationgroup").slideToggle();
+	});
+	$('#acadAchievementscheck').change(function () {
+		updateResume();
+		$("#acadAchievementsgroup").slideToggle();
+	});
+	$('#workExperiencecheck').change(function () {
+		updateResume();
+		$("#workExperiencegroup").slideToggle();
+	});
+	$('#papercheck').change(function () {
+		updateResume();
+		$("#papersgroup").slideToggle();
+	});
+	$('#extraCcheck').change(function () {
+		updateResume();
+		$("#extraCgroup").slideToggle();
+	});
+	function change_template()
+	{
+		//get the new css
+		var result=""
+		$.ajax({
+    		type: "GET",
+    		url: "/resumes/cssapi",
+    		data: {css_template: $("#css_template option:selected").text()},
+    		async: false,
+    		success: function(data){
+    					result=data
+    					console.log(data)
+    				}
+    	})
+		current_dynamic_css = result;
+		updateResume();
+	}
+	function toggleUpDown()
+	{
+		if($(this).innerHTML == '^')
+			$(this).innerHTML = 'v';
+		else
+			$(this).innerHTML = '^';
+	}
+</script>
+
+<style id="coolloader">
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        100px;
+    height:     50%;
+    width:      50%;
+    background: rgba( 255, 255, 255, 1 ) 
+                url('http://jimpunk.net/Loading/wp-content/uploads/loading1.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading {
+    overflow: auto;   
+}
+
+body.loading .modal {
+    display: block;
+}
+</style>
+
+<script id="cooljsloading">
+	$body = $("body");
+
+	$(document).on({
+	    ajaxStart: function() { $body.addClass("loading");    },
+	     ajaxStop: function() { $body.removeClass("loading"); }    
+	});
+
+</script>
+
+
+<script>
+// For verification of name before submission'
+$(function() {
+    $('#form').submit(function(e) {
+    	e.preventDefault();
+    	var rName = $("#rname").val()
+    	ret = false
+    	$.ajax({
+    		type: "GET",
+    		url: "/resumes/checkdata",
+    		data: {rname: rName},
+    		async: false,
+    		success: function(data){
+    					if(data.valid == "true"){
+    						ret = true
+    					} 
+    					else{
+    							alert("Name already in use. Use a new name")
+    					}
+    				}
+    	})
+    	if(ret){
+    		$.post('/resumes/postdata', $(this).serialize(), function(data){
+    			alert("Success!")
+    			window.location.href= "/resumes/viewlist"
+    		});
+		}
+    });
+});
+</script>
