@@ -27,7 +27,9 @@ class ResumesController < ApplicationController
 				flash[:error] = "Blank name not allowed. You forced the button to click. Now we force you to reenter the data"
 				redirect_to resumes_createpage_path
 			end
-			file = StringIO.new('<html><head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"></head><body>' + params[:htmlpage] + '</html></body>');
+			
+			bootstrap = File.read(Rails.root.join('public','bootstrap.min.css'));
+			file = StringIO.new('<html><body><style>' + bootstrap + '</style>' + params[:htmlpage] + '</body></html>')
 
 			file.class.class_eval { attr_accessor :original_filename, :content_type }
   			file.original_filename = @rname+".html"
@@ -42,10 +44,14 @@ class ResumesController < ApplicationController
 
 				#save the actual resume
 
+				#css_template_name
+				@new_resume_relations_entry.resume_data_values.build(field_name: "css_template", field_data: params[:css_template]).save()
+				
 				#name
 				@name = params[:name]
 				@resume_data_name = @new_resume_relations_entry.resume_data_values.build(field_name: "name", field_data: @name)
 				@resume_data_name.save()
+
 
 				#contact
 				@contactcheck = params[:contactcheck]

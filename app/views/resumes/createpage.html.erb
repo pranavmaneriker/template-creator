@@ -340,6 +340,17 @@
 	function change_template()
 	{
 		//get the new css
+		var result=""
+		$.ajax({
+    		type: "GET",
+    		url: "/resumes/cssapi",
+    		data: {css_template: $("#css_template option:selected").text()},
+    		async: false,
+    		success: function(data){
+    					result=data
+    					console.log(data)
+    				}
+    	})
 		current_dynamic_css = result;
 		updateResume();
 	}
