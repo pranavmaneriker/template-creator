@@ -13,9 +13,6 @@
 		<!-- move this to an appropriate file -->
 		<%= form_tag(homepages_postdata_path, method: "post", id: "form") do %>
 			<label class="fieldname">
-				File Name :
-			</label>
-			<label class="fieldname">
 				Template Name :
 			</label>
 			<select id="css_template" name="css_template" form="form" onchange="change_template()">
@@ -25,6 +22,9 @@
 				<option>test</option>
 			</select>
 			<hr>
+			<label class="fieldname">
+				File Name :
+			</label>
 			<input id="rname" type="text" name="rname">
 			<br>
 			<label class="fieldname">

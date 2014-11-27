@@ -34,3 +34,6 @@ In console:
 
 data = File.open(Rails.root.join("public","simple.css"))
 HomepagesCssTemplate.new(template_name:"simple", template_file: data).save()
+
+data = File.open(Rails.root.join("public","homepage_2.css"))
+HomepagesCssTemplate.new(template_name:"homepage_2", template_file: data).save()
