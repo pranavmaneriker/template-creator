@@ -15,7 +15,7 @@
 			<label class="fieldname">
 				Template Name :
 			</label>
-			<select id="css_template" name="css_template" form="form">
+			<select id="css_template" name="css_template" form="form" onchange="change_template()">
 				<% @css_list.each do |item| %>
 					<option value="<%= item.template_name %>"><%= item.template_name %></option>
 				<% end %>
@@ -111,6 +111,7 @@
 	var workExp_index=0;
 	var paper_index=0;
 	var extraC_index=0;
+	var current_dynamic_css = '';
 	function updateResume()
 	{
 		$('#edu_index').val(edu_index);
@@ -203,7 +204,8 @@
 			}
 			data = data + "</ul>";
 		}
-		
+		data = data + "<style id='dynamic_css'>"+current_dynamic_css+"</style>";
+		data = data + ''
 		// data = data + '<label class="section_title">Hobbies</label>'
 
 		// if(check("educationcheck"))
@@ -335,13 +337,21 @@
 		updateResume();
 		$("#extraCgroup").slideToggle();
 	});
-	
+	function change_template()
+	{
+		//get the new css
+		current_dynamic_css = result;
+		updateResume();
+	}
 	function toggleUpDown()
 	{
-		$(this).innerHTML = ($(this).innerHTML == '^')?'v':'^';
+		if($(this).innerHTML == '^')
+			$(this).innerHTML = 'v';
+		else
+			$(this).innerHTML = '^';
 	}
 </script>
-<style>
+<!--<style>
 .page{
 		padding : 10pt;
 		width : 60%;
@@ -368,7 +378,7 @@
 }
 .contacts{
 	font-size: 16px;
-	/*font-weight: bold;*/
+	font-weight: bold;
 	margin-bottom: 10px;
 	margin-top: 0px;
 	text-align: right;
@@ -397,7 +407,7 @@ td{
 hr{
 	color: #050560;
 }
-</style>
+</style>-->
 
 <style id="coolloader">
 .modal {
