@@ -227,6 +227,7 @@ class ResumesController < ApplicationController
 			flash[:error] = "Invalid parameters entered"
 			redirect_to resumes_viewlist_path
 		end
+		PandocRuby.allow_file_paths = true
 		
 		@reqFor = params[:format]
 		case @reqFor
