@@ -68,6 +68,8 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mathjax-rails (2.3.0)
+      railties (>= 3.0)
     mime-types (1.25.1)
     multi_json (1.10.1)
     pandoc-ruby (0.7.5)
@@ -150,6 +152,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   factory_girl_rails (= 1.4.0)
   jquery-rails
+  mathjax-rails
   pandoc-ruby (= 0.7.5)
   paperclip (~> 4.2)
   rails (= 3.2.3)
