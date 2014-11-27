@@ -21,3 +21,8 @@ ResumesCssTemplate.new(template_name:"funky1", template_file: data).save()
 data = File.open(Rails.root.join("public","funky2.css"))
 ResumesCssTemplate.new(template_name:"funky2", template_file: data).save()
 
+
+gem uninstall wkhtmltopdf-binary
+
+Then install a latest release via direct download from:
+http://wkhtmltopdf.org/downloads.html

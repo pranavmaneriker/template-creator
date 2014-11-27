@@ -1,6 +1,7 @@
 TestApp::Application.routes.draw do
   get "users/new"
 
+  mathjax 'mathjax'
   root to: 'static_pages#home'
 
   resources :users

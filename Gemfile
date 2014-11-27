@@ -16,7 +16,9 @@ gem 'bootstrap-will_paginate', '0.0.6'
 gem "paperclip", "~> 4.2"
 gem "pandoc-ruby", "0.7.5"
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+gem 'mathjax-rails'
+
+
 #gem 'ember-rails'
 #gem 'ember-source', '1.8.0' # or the version you need
 # Gems used only for assets and not required
