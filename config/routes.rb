@@ -10,7 +10,7 @@ TestApp::Application.routes.draw do
 
   resources :resumes, only: [ :home, :createpage, :create, :postdata , :checkdata, :viewlist, :viewedit , :delete, :createtemplate, :cssapi, :checkcssfile, :postcssfile] 
 
-  resources :homepages, only: [ :home, :create, :postdata, :view, :delete, :download, :checkdata ]
+  resources :homepages, only: [ :home, :create, :postdata, :view, :delete, :download, :checkdata, :cssapi ]
 
   match '/signup', to: "users#new"
   match "/help", to: 'static_pages#help'
@@ -40,6 +40,8 @@ TestApp::Application.routes.draw do
   match '/homepages/delete', to:'homepages#delete'
   match '/homepages/checkdata', to:'homepages#checkdata'
   match '/homepages/download', to:'homepages#download'
+  match '/homepages/cssapi', to: "homepages#cssapi", via: :get
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

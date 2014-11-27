@@ -12,6 +12,7 @@
 			</label>
 			<input id="rname" type="text" name="rname">
 			<br>
+			<br>
 			<label class="fieldname">
 				Template Name :
 			</label>
@@ -21,7 +22,6 @@
 				<% end %>
 			</select>
 			<hr>
-			<br>
 			<label class="fieldname">Resume data:</label>
 			<label class="fieldname">
 				Name :
@@ -344,7 +344,7 @@
 		var result=""
 		$.ajax({
     		type: "GET",
-    		url: "/resumes/cssapi",
+    		url: "/homepages/cssapi",
     		data: {css_template: $("#css_template option:selected").text()},
     		async: false,
     		success: function(data){

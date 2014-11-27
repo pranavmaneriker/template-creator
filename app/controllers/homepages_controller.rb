@@ -6,6 +6,7 @@ class HomepagesController < ApplicationController
 	end
 	
 	def create
+		@css_list = HomepagesCssTemplate.all
 	end
 
 	def postdata
@@ -57,5 +58,10 @@ class HomepagesController < ApplicationController
 			redirect_to homepages_view_path
 		end
 		send_file @homepage.homepage_html.path, filename: @homepage.homepage_name, type: "text/html", disposition: 'inline'
+	end
+
+	def cssapi
+		@css_fname = params[:css_template]
+		send_data Paperclip.io_adapters.for(HomepagesCssTemplate.find_by_template_name(@css_fname).template_file).read
 	end
 end
